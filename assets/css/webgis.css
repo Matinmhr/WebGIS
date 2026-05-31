@@ -1,0 +1,173 @@
+#map-wrapper {
+  position: relative;
+  width: 90%;
+  margin: 0 auto;
+  margin-bottom: 120px;
+}
+
+#map {
+  width: 100%;
+  height: 700px;
+}
+
+.custom-control {
+     position: absolute;
+     bottom: 30px;
+     right: 15px;
+     background: white;
+       border: 2px solid cadetblue;
+      padding: 10px;
+}
+
+/*this remove everything except + and - in the zoom control*/
+.ol-rotate {
+  display: none;
+}
+.ol-attribution {
+  display: none;
+}
+
+.ol-zoom {
+  bottom: 1rem;
+  right: 1rem;
+  top: auto;
+  left: auto;
+  fill: green;
+}
+
+.navbar-brand {
+	font-weight: 700;
+}
+
+.navbar-default .navbar-brand {
+	color: #ffffff;
+}
+
+.navbar-default {
+	background-color: Black;
+	border-color: transparent;
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+	color: #ffffff;
+	background-color: transparent;
+	border-bottom: 2px solid #ffffff
+}
+
+.navbar-default .navbar-nav > li > a {
+	color: #ffffff;
+}
+
+
+@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
+
+
+::-moz-selection {
+    background: #f2c2c9;
+    color: #a4003a;
+    text-shadow: none;
+}
+
+::selection {
+    background: #16a085;
+    color: #a4003a;
+    text-shadow: none;
+}
+
+/*
+ * A better looking default horizontal rule
+ */
+
+ hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+.centered {
+	text-align: center
+}
+
+.mt {
+	margin-top: 80px;
+}
+
+.mb {
+	margin-bottom: 80px;
+}
+
+/* ==========================================================================
+   General styles
+   ========================================================================== */
+
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+
+    -webkit-font-smoothing: antialiased;
+    -webkit-overflow-scrolling: touch;
+}
+
+h1 {
+  font-weight: 700;
+  color: #4a4a4a;
+  text-align: center;
+  margin-top: 80px;   /* compensa la navbar fixed-top alta ~50px */
+  margin-bottom: 20px;
+}
+
+#footerwrap {
+	padding-top: 70px;
+	padding-bottom: 50px;
+	background-color: #2f2f2f;
+}
+
+#footerwrap p {
+	color: #f2f2f2;
+	margin-left: 10px;
+}
+
+.legend-container {
+  position: absolute;
+  bottom: 30px;
+  left: 10px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 6px;
+  padding: 10px 14px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  z-index: 1000;
+  min-width: 160px;
+}
+
+.legend-title {
+  display: block;
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #4a4a4a;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 4px;
+}
+
+.legend-content {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legend-color {
+  width: 20px;
+}
