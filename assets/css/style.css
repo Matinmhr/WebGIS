@@ -82,7 +82,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .navbar-default {
-	background-color: Black;
+	background-color: transparent;
 	border-color: transparent;
 }
 
@@ -210,72 +210,4 @@ h1, h2, h3, h4, h5, h6 {
 
 .gallery img:hover {
 	opacity: 0.4;
-}
-
-
-
-/* css style to use for all three pollutant pages */
-
-#container_pollutant {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 2rem 1.5rem;
-}
-
-#page-header_pollutant {
-  text-align: center;
-  margin-bottom: 6rem;
-  margin-top: 9rem;
-}
-
-#page-title_pollutant {
-  font-size: 7rem;
-  margin-bottom: 2rem;
-}
-
-#page-subtitle_pollutant {
-  color: #666;
-  font-size: 1rem;
-}
-
-.section_pollutant {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  margin-bottom: 4rem;
-  padding-bottom: 4rem;
-  
-}
-
-.section_pollutant.reverse {
-  flex-direction: row-reverse;
-}
-
-.section_pollutant img {
-  width: 55%;
-  border-radius: 10px;
-  object-fit: cover;
-}
-
-.section-text_pollutant h2 {
-  font-size: 4rem;
-  margin-bottom: 0.8rem;
-  margin-left: -10px;
-  
-}
-
-.section-text_pollutant p {
-  line-height: 1.8;
-  color: #000000;
-  text-align: left;
-}
-
-@media (max-width: 650px) {
-  .section_pollutant,
-  .section_pollutant.reverse {
-    flex-direction: column;
-  }
-  .section_pollutant img {
-    width: 100%;
-  }
 }
