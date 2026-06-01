@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GIS Lab 2026 — Spatial Analysis</title>
+
+<!-- OpenLayers -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ol3/4.6.5/ol.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ol3/4.6.5/ol.js"></script>
+
+<!-- Chart.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/css/pm2p5.css">
+</head>
+<body>
+
+
+
+<div class="wrapper">
+
+  <!-- MAP -->
+  <div class="map-section">
+    <div id="map"></div>
+
+    <!-- LEGEND -->
+    <div id="legend">
+      <h3>Legend</h3>
+      <div id="legend-items"></div>
+    </div>
+
+    <!-- LAYERS -->
+    <div id="layers-panel">
+      <h3>Layers</h3>
+      <div class="layer-item">
+        <input type="radio" name="layer" id="l-osm" value="osm" checked>
+        <label for="l-osm">OpenStreetMap</label>
+      </div>
+      <div class="layer-item">
+        <input type="radio" name="layer" id="l-topo" value="topo">
+        <label for="l-topo">Topographic</label>
+      </div>
+      <div class="layer-item">
+        <input type="radio" name="layer" id="l-satellite" value="satellite">
+        <label for="l-satellite">Satellite (ESRI)</label>
+      </div>
+      <div class="layer-item">
+        <input type="radio" name="layer" id="l-dark" value="dark">
+        <label for="l-dark">CartoDB Dark</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- DESCRIPTION -->
+  <div class="desc-bar">
+    <span class="desc-label">Layer Info</span>
+    <span id="desc-text">OpenStreetMap — General-purpose street map rendered by OpenStreetMap contributors. Shows roads, buildings, land use, and points of interest worldwide.</span>
+  </div>
+
+  <!-- BOTTOM ROW -->
+  <div class="bottom-row">
+
+    <!-- TABLE -->
+    <div class="table-panel">
+      <div class="panel-header"><div class="dot"></div> Data Table</div>
+      <div class="table-scroll">
+        <table id="data-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Region</th>
+              <th>Area (km²)</th>
+              <th>Population</th>
+              <th>Land Use</th>
+              <th>Coverage</th>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PIE CHART -->
+    <div class="chart-panel">
+      <div class="panel-header"><div class="dot"></div> Land Use Distribution</div>
+      <div class="chart-body">
+        <canvas id="pie-chart"></canvas>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="assets/js/pm2p5.js"></script>
+</body>
+</html>

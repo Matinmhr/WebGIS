@@ -1,0 +1,216 @@
+// ── DATA ──────────────────────────────────────────
+const layerData = {
+  osm: {
+    desc: "OpenStreetMap — General-purpose street map rendered by OpenStreetMap contributors. Shows roads, buildings, land use, and points of interest worldwide.",
+    legend: [
+      { color: "#2d6a4f", label: "Green spaces" },
+      { color: "#1d3557", label: "Water bodies" },
+      { color: "#e9c46a", label: "Urban areas" },
+      { color: "#b5451b", label: "Roads" },
+    ],
+    table: [
+      ["01", "North District",  "124.3", "48,200", "Urban",      "38%"],
+      ["02", "River Basin",     "87.6",  "12,400", "Water",      "14%"],
+      ["03", "Central Park",    "9.1",   "—",      "Green",      "7%"],
+      ["04", "East Quarter",    "56.2",  "31,500", "Urban",      "24%"],
+      ["05", "Forest Reserve",  "211.0", "—",      "Forest",     "17%"],
+    ],
+    chart: [38, 14, 7, 24, 17],
+    chartLabels: ["Urban", "Water", "Green", "East", "Forest"],
+    chartColors: ["#e9c46a","#1d3557","#2d6a4f","#b5451b","#457b9d"],
+  },
+  topo: {
+    desc: "Topographic Map — Displays terrain elevation, contour lines, ridges, valleys and physical geography. Useful for slope analysis and watershed delineation.",
+    legend: [
+      { color: "#6a994e", label: "Low elevation" },
+      { color: "#a7c957", label: "Mid elevation" },
+      { color: "#bc4749", label: "High elevation" },
+      { color: "#386641", label: "Forest cover" },
+    ],
+    table: [
+      ["01", "Alpine Zone",     "98.4",  "1,200",  "High elev.", "22%"],
+      ["02", "Midland Belt",    "145.7", "28,900", "Mid elev.",  "33%"],
+      ["03", "Valley Floor",   "73.2",  "41,300", "Low elev.",  "17%"],
+      ["04", "Ridgeline",      "34.1",  "—",      "Rocky",      "8%"],
+      ["05", "Plateau",        "189.3", "5,600",  "Forest",     "20%"],
+    ],
+    chart: [22, 33, 17, 8, 20],
+    chartLabels: ["Alpine","Midland","Valley","Ridge","Plateau"],
+    chartColors: ["#bc4749","#a7c957","#6a994e","#c9d6df","#386641"],
+  },
+  satellite: {
+    desc: "ESRI World Imagery — High-resolution satellite and aerial photography. Ideal for land cover classification, urban sprawl monitoring and change detection.",
+    legend: [
+      { color: "#606c38", label: "Vegetation" },
+      { color: "#dda15e", label: "Bare soil" },
+      { color: "#8ecae6", label: "Water" },
+      { color: "#adb5bd", label: "Built-up" },
+    ],
+    table: [
+      ["01", "Industrial Zone", "62.5",  "—",      "Built-up",   "15%"],
+      ["02", "Farmland East",   "310.0", "4,100",  "Vegetation", "42%"],
+      ["03", "Reservoir",       "28.4",  "—",      "Water",      "9%"],
+      ["04", "Suburban Fringe", "90.1",  "67,400", "Built-up",   "22%"],
+      ["05", "Scrubland",       "45.0",  "—",      "Bare soil",  "12%"],
+    ],
+    chart: [15, 42, 9, 22, 12],
+    chartLabels: ["Industrial","Farmland","Water","Suburban","Scrub"],
+    chartColors: ["#adb5bd","#606c38","#8ecae6","#dda15e","#e9c46a"],
+  },
+  dark: {
+    desc: "CartoDB Dark Matter — Minimalist dark basemap ideal for thematic overlays. Reduces visual noise so data layers and choropleth maps stand out clearly.",
+    legend: [
+      { color: "#e63946", label: "High density" },
+      { color: "#f4a261", label: "Medium density" },
+      { color: "#2a9d8f", label: "Low density" },
+      { color: "#264653", label: "Uninhabited" },
+    ],
+    table: [
+      ["01", "City Core",       "18.9",  "215,000","High dens.", "31%"],
+      ["02", "Inner Ring",      "47.3",  "128,000","Med dens.",  "28%"],
+      ["03", "Outer Suburbs",   "132.5", "84,000", "Low dens.",  "24%"],
+      ["04", "Peri-urban",      "280.0", "18,000", "Low dens.",  "12%"],
+      ["05", "Rural Hinterland","620.0", "3,200",  "Uninhabited","5%"],
+    ],
+    chart: [31, 28, 24, 12, 5],
+    chartLabels: ["Core","Inner","Suburbs","Peri-urban","Rural"],
+    chartColors: ["#e63946","#f4a261","#2a9d8f","#264653","#8d99ae"],
+  },
+};
+
+// ── MAP SETUP ──────────────────────────────────────
+const osmLayer = new ol.layer.Tile({
+  source: new ol.source.OSM(),
+  visible: true,
+});
+const topoLayer = new ol.layer.Tile({
+  source: new ol.source.XYZ({
+    url: 'https://tile.opentopomap.org/{z}/{x}/{y}.png',
+    attributions: '© OpenTopoMap'
+  }),
+  visible: false,
+});
+const satelliteLayer = new ol.layer.Tile({
+  source: new ol.source.XYZ({
+    url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+    attributions: '© ESRI'
+  }),
+  visible: false,
+});
+const darkLayer = new ol.layer.Tile({
+  source: new ol.source.XYZ({
+    url: 'https://cartodb-basemaps-a.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png',
+    attributions: '© CartoDB'
+  }),
+  visible: false,
+});
+
+const map = new ol.Map({
+  target: 'map',
+  layers: [osmLayer, topoLayer, satelliteLayer, darkLayer],
+  view: new ol.View({
+    center: ol.proj.fromLonLat([12.4964, 41.9028]), 
+    zoom: 6,
+  }),
+  controls: ol.control.defaults({ attribution: false }),
+});
+
+const layerMap = { osm: osmLayer, topo: topoLayer, satellite: satelliteLayer, dark: darkLayer };
+
+// ── PIE CHART ──────────────────────────────────────
+let pieChart = null;
+
+function buildPie(data) {
+  const ctx = document.getElementById('pie-chart').getContext('2d');
+  if (pieChart) pieChart.destroy();
+  pieChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: data.chartLabels,
+      datasets: [{
+        data: data.chart,
+        backgroundColor: data.chartColors,
+        borderColor: '#faf9f7',
+        borderWidth: 2,
+        hoverOffset: 6,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: {
+            font: { family: 'DM Mono', size: 10 },
+            padding: 10,
+            boxWidth: 12,
+            color: '#1a1714',
+          }
+        },
+        tooltip: {
+          callbacks: {
+            label: ctx => ` ${ctx.label}: ${ctx.parsed}%`
+          },
+          bodyFont: { family: 'DM Mono' },
+          titleFont: { family: 'Syne' },
+        }
+      }
+    }
+  });
+}
+
+// ── LEGEND ────────────────────────────────────────
+function buildLegend(data) {
+  const el = document.getElementById('legend-items');
+  el.innerHTML = data.legend.map(l =>
+    `<div class="legend-item">
+      <div class="legend-dot" style="background:${l.color}"></div>
+      <span>${l.label}</span>
+    </div>`
+  ).join('');
+}
+
+// ── TABLE ─────────────────────────────────────────
+const landColors = {
+  "Urban":"#e9c46a","Water":"#1d3557","Green":"#2d6a4f","Forest":"#386641",
+  "High elev.":"#bc4749","Mid elev.":"#a7c957","Low elev.":"#6a994e","Rocky":"#c9d6df","Plateau":"#386641",
+  "Built-up":"#adb5bd","Vegetation":"#606c38","Bare soil":"#dda15e",
+  "High dens.":"#e63946","Med dens.":"#f4a261","Low dens.":"#2a9d8f","Uninhabited":"#264653",
+};
+
+function buildTable(data) {
+  const tbody = document.getElementById('table-body');
+  tbody.innerHTML = data.table.map(r => {
+    const bg = landColors[r[4]] || '#ccc';
+    return `<tr>
+      <td style="color:var(--ink-muted)">${r[0]}</td>
+      <td><strong>${r[1]}</strong></td>
+      <td>${r[2]}</td>
+      <td>${r[3]}</td>
+      <td><span class="badge" style="background:${bg}22;color:${bg};border:1px solid ${bg}55">${r[4]}</span></td>
+      <td>${r[5]}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ── LAYER SWITCH ──────────────────────────────────
+function switchLayer(key) {
+  Object.entries(layerMap).forEach(([k, l]) => l.setVisible(k === key));
+  const data = layerData[key];
+  document.getElementById('desc-text').style.opacity = 0;
+  setTimeout(() => {
+    document.getElementById('desc-text').textContent = data.desc;
+    document.getElementById('desc-text').style.opacity = 1;
+  }, 200);
+  buildLegend(data);
+  buildTable(data);
+  buildPie(data);
+}
+
+document.querySelectorAll('input[name="layer"]').forEach(radio => {
+  radio.addEventListener('change', e => switchLayer(e.target.value));
+});
+
+// ── INIT ──────────────────────────────────────────
+switchLayer('osm');

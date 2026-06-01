@@ -89,3 +89,93 @@ map.addControl(new ol.control.MousePosition({
   placeholder: '100.0000, 0.0000'
 }));
 map.addControl(new ol.control.LayerSwitcher({ tipLabel: 'Layers' }));
+
+
+const legendData = {
+  'AMAC': {
+    title: 'NO₂ Change 2021-2023',
+    items: [
+      { color: '#2534a8', label: '≤ -5 µg/m³' },
+      { color: '#6e62d4', label: '-5 — -2 µg/m³' },
+      { color: '#a0d385', label: '-2 — 0 µg/m³' },
+      { color: '#cbd07a', label: '0 — 2 µg/m³' },
+      { color: '#d68574', label: '2 — 5 µg/m³' },
+      { color: '#b22625', label: '> 5 µg/m³' }
+    ]
+  },
+  'Concentration 2023': {
+    title: 'NO₂ Concentration 2023',
+    items: [
+      { color: '#8ec9db', label: '≤ 10 µg/m³' },
+      { color: '#4c8fa0', label: '10 — 25 µg/m³' },
+      { color: '#bdbf9b', label: '25 — 40 µg/m³' },
+      { color: '#e2624a', label: '40 — 50 µg/m³' },
+      { color: '#7a0403', label: '> 50 µg/m³' }
+    ]
+  }
+  // aggiungi altri layer qui con lo stesso schema
+};
+
+function updateLegend(layerTitle) {
+  const legendContent = document.getElementById('legend-content');
+  const legendTitle = document.querySelector('.legend-title');
+  const data = legendData[layerTitle];
+
+  if (!data) {
+    legendContent.innerHTML = '';
+    legendTitle.textContent = 'Legend';
+    return;
+  }
+
+  legendTitle.textContent = data.title;
+  legendContent.innerHTML = data.items.map(item => `
+    <div class="legend-item">
+      <div class="legend-color" style="background-color: ${item.color}"></div>
+      <span class="legend-label">${item.label}</span>
+    </div>
+  `).join('');
+}
+
+// per ogni overlay layer aggiungi questo listener
+[AMAC, Concentration_2023].forEach(layer => {
+  layer.on('change:visible', function() {
+    if (layer.getVisible()) {
+      updateLegend(layer.get('title'));
+    }
+  });
+});
+
+// legenda iniziale al caricamento
+updateLegend();
+
+function getTopmostVisibleLayer() {
+  // overlayLayers è il gruppo, getLayers() restituisce la collezione
+  // i layer sono in ordine bottom→top, quindi reverse() per avere top→bottom
+  const layers = overlayLayers.getLayers().getArray().slice().reverse();
+  return layers.find(layer => layer.getVisible());
+}
+
+function refreshLegend() {
+  const topLayer = getTopmostVisibleLayer();
+  if (topLayer) {
+    updateLegend(topLayer.get('title'));
+  } else {
+    updateLegend(null);  // nessun layer attivo → legenda vuota
+  }
+}
+
+// ascolta tutti i layer
+[AMAC, Concentration_2023, Average_2023, December_2023].forEach(layer => {
+  layer.on('change:visible', function() {
+    refreshLegend();
+  });
+});
+
+// legenda iniziale
+refreshLegend();
+
+function getTopmostVisibleLayer() {
+  const layers = overlayLayers.getLayers().getArray().slice().reverse();
+  layers.forEach(l => console.log(l.get('title'), l.getVisible()));
+  return layers.find(layer => layer.getVisible());
+}
