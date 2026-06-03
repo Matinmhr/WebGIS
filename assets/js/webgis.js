@@ -6,6 +6,13 @@ const osm = new ol.layer.Tile({
   source: new ol.source.OSM()
 });
 
+const groupColors = { //legend colours
+  'Base Maps': '#3498db',      // blu
+  'no2 Layers': '#8B5CF6',
+  'pm10 Layers': '#F97316',
+  'pm2.5 Layers': '#EF4444'
+};
+
 const sentinel2 = new ol.layer.Tile({ //default one
   title: 'Sentinel-2 Cloudless 2020',
   type: 'base',
@@ -16,9 +23,9 @@ const sentinel2 = new ol.layer.Tile({ //default one
   })
 });
 
-// 2. OVERLAY LAYERS (decommentali quando hai i layer su GeoServer)
-let December_2023 = new ol.layer.Image({
-  title: 'December 2023',
+// no2 layers
+let December_2023_no2 = new ol.layer.Image({
+  title: 'December 2023 no2',
   visible: false,
   source: new ol.source.ImageWMS({
     url: 'https://www.gis-geoserver.polimi.it/geoserver/gisgeoserver_16/wms',
@@ -26,8 +33,8 @@ let December_2023 = new ol.layer.Image({
   })
 });
 
-let AMAC = new ol.layer.Image({
-  title: 'AMAC',
+let AMAC_no2 = new ol.layer.Image({
+  title: 'AMAC no2',
   visible: false,
   source: new ol.source.ImageWMS({
     url: 'https://www.gis-geoserver.polimi.it/geoserver/gisgeoserver_16/wms',
@@ -35,8 +42,8 @@ let AMAC = new ol.layer.Image({
   })
 });
 
-let Average_2023 = new ol.layer.Image({
-  title: 'Average 2023',
+let Average_2023_no2= new ol.layer.Image({
+  title: 'Average 2023 no2',
   visible: false,
   source: new ol.source.ImageWMS({
     url: 'https://www.gis-geoserver.polimi.it/geoserver/gisgeoserver_16/wms',
@@ -44,12 +51,68 @@ let Average_2023 = new ol.layer.Image({
   })
 });
 
-let Concentration_2023 = new ol.layer.Image({
-  title: 'Concentration 2023',
+let Concentration_2023_no2 = new ol.layer.Image({
+  title: 'Concentration 2023 no2',
   visible: false,
   source: new ol.source.ImageWMS({
     url: 'https://www.gis-geoserver.polimi.it/geoserver/gisgeoserver_16/wms',
     params: { 'LAYERS': 'gisgeoserver_16:Belgium_no2_concentration_map_2023', 'FORMAT': 'image/png', 'TRANSPARENT': true }
+  })
+});
+
+let Bivariate_map_no2 = new ol.layer.Image({
+  title: 'Bivariate Map no2',
+  visible: false,
+  source: new ol.source.ImageWMS({
+    url: 'https://www.gis-geoserver.polimi.it/geoserver/gisgeoserver_16/wms',
+    params: { 'LAYERS': 'gisgeoserver_16:Belgium_no2_2023_bivariate', 'FORMAT': 'image/png', 'TRANSPARENT': true }
+  })
+});
+
+
+// pm2.5 layers
+let December_2023_pm2p5 = new ol.layer.Image({
+  title: 'December 2023 pm2.5',
+  visible: false,
+  source: new ol.source.ImageWMS({
+    url: 'https://www.gis-geoserver.polimi.it/geoserver/gisgeoserver_16/wms',
+    params: { 'LAYERS': 'gisgeoserver_16:Belgium_CAMS_pm2p5_2023_12', 'FORMAT': 'image/png', 'TRANSPARENT': true }
+  })
+});
+
+let AMAC_pm2p5 = new ol.layer.Image({
+  title: 'AMAC pm2.5',
+  visible: false,
+  source: new ol.source.ImageWMS({
+    url: 'https://www.gis-geoserver.polimi.it/geoserver/gisgeoserver_16/wms',
+    params: { 'LAYERS': 'gisgeoserver_16:Belgium_pm2p5_2021_2023_AMAC_map', 'FORMAT': 'image/png', 'TRANSPARENT': true }
+  })
+});
+
+let Average_2023_pm2p5= new ol.layer.Image({
+  title: 'Average 2023 pm2.5',
+  visible: false,
+  source: new ol.source.ImageWMS({
+    url: 'https://www.gis-geoserver.polimi.it/geoserver/gisgeoserver_16/wms',
+    params: { 'LAYERS': 'gisgeoserver_16:Belgium_average_pm2p5_2023', 'FORMAT': 'image/png', 'TRANSPARENT': true }
+  })
+});
+
+let Concentration_2023_pm2p5 = new ol.layer.Image({
+  title: 'Concentration 2023 pm2.5',
+  visible: false,
+  source: new ol.source.ImageWMS({
+    url: 'https://www.gis-geoserver.polimi.it/geoserver/gisgeoserver_16/wms',
+    params: { 'LAYERS': 'gisgeoserver_16:Belgium_pm2p5_concentration_map_2023', 'FORMAT': 'image/png', 'TRANSPARENT': true }
+  })
+});
+
+let Bivariate_map_pm2p5 = new ol.layer.Image({
+  title: 'Bivariate Map pm2.5',
+  visible: false,
+  source: new ol.source.ImageWMS({
+    url: 'https://www.gis-geoserver.polimi.it/geoserver/gisgeoserver_16/wms',
+    params: { 'LAYERS': 'gisgeoserver_16:Belgium_pm2p5_2023_bivariate', 'FORMAT': 'image/png', 'TRANSPARENT': true }
   })
 });
 
@@ -61,9 +124,14 @@ let basemapLayers = new ol.layer.Group({
   layers: [osm, sentinel2]
 });
 
-let overlayLayers = new ol.layer.Group({
-  title: 'no2 Layers',
-  layers: [AMAC, Concentration_2023, Average_2023,  December_2023]
+let no2 = new ol.layer.Group({
+  title: 'NO2',
+  layers: [Bivariate_map_no2, AMAC_no2, Concentration_2023_no2, Average_2023_no2,  December_2023_no2]
+});
+
+let pm2p5 = new ol.layer.Group({
+  title: 'PM2.5',
+  layers: [Bivariate_map_pm2p5, AMAC_pm2p5, Concentration_2023_pm2p5, Average_2023_pm2p5,  December_2023_pm2p5]
 });
 
 // 4. MAPPA
@@ -72,7 +140,7 @@ const initialCoordinates = [4.4699, 50.5039];
 
 var map = new ol.Map({
   target: document.getElementById('map'),
-  layers: [basemapLayers, overlayLayers],  // ← gruppi, non osm direttamente
+  layers: [basemapLayers, no2, pm2p5],  // ← gruppi, non osm direttamente
   view: new ol.View({
     center: ol.proj.fromLonLat(initialCoordinates),
     zoom: initialZoom
@@ -92,7 +160,7 @@ map.addControl(new ol.control.LayerSwitcher({ tipLabel: 'Layers' }));
 
 
 const legendData = {
-  'AMAC': {
+  'AMAC no2': {
     title: 'NO₂ Change 2021-2023',
     items: [
       { color: '#2534a8', label: '≤ -5 µg/m³' },
@@ -103,7 +171,7 @@ const legendData = {
       { color: '#b22625', label: '> 5 µg/m³' }
     ]
   },
-  'Concentration 2023': {
+  'Concentration 2023 no2': {
     title: 'NO₂ Concentration 2023',
     items: [
       { color: '#8ec9db', label: '≤ 10 µg/m³' },
@@ -112,20 +180,133 @@ const legendData = {
       { color: '#e2624a', label: '40 — 50 µg/m³' },
       { color: '#7a0403', label: '> 50 µg/m³' }
     ]
-  }
+  },
+   'December 2023 no2': {
+    title: 'NO₂ December 2023 (µg/m³)',
+    items: [
+    { color: '#30123b', label: '5.0 µg/m³' },
+    { color: '#4662d8', label: '6.8 µg/m³' },
+    { color: '#35abf8', label: '8.6 µg/m³' },
+    { color: '#1be5b5', label: '10.4 µg/m³' },
+    { color: '#74fe5d', label: '12.2 µg/m³' },
+    { color: '#c9ef34', label: '14.1 µg/m³' },
+    { color: '#fbb938', label: '15.9 µg/m³' },
+    { color: '#f56918', label: '17.7 µg/m³' },
+    { color: '#c92903', label: '19.5 µg/m³' },
+    { color: '#7a0403', label: '21.3 µg/m³' },
+    ]
+   },
+
+   'December 2023 pm2.5': {
+  title: 'PM2.5 December 2023 (µg/m³)',
+  items: [
+    { color: '#30123b', label: '3.98 µg/m³' },
+    { color: '#4662d8', label: '4.70 µg/m³' },
+    { color: '#35abf8', label: '5.43 µg/m³' },
+    { color: '#1be5b5', label: '6.15 µg/m³' },
+    { color: '#74fe5d', label: '6.88 µg/m³' },
+    { color: '#c9ef34', label: '7.60 µg/m³' },
+    { color: '#fbb938', label: '8.33 µg/m³' },
+    { color: '#f56918', label: '9.05 µg/m³' },
+    { color: '#c92903', label: '9.78 µg/m³' },
+    { color: '#7a0403', label: '10.50 µg/m³' },
+  ]
+},
+
+   'Average 2023 no2': {
+    title: 'NO₂ Average 2023 (µg/m³)',
+    items: [
+    { color: '#30123b', label: '4.5 µg/m³' },
+    { color: '#4662d8', label: '6.4 µg/m³' },
+    { color: '#35abf8', label: '8.3 µg/m³' },
+    { color: '#1be5b5', label: '10.3 µg/m³' },
+    { color: '#74fe5d', label: '12.2 µg/m³' },
+    { color: '#c9ef34', label: '14.1 µg/m³' },
+    { color: '#fbb938', label: '16.1 µg/m³' },
+    { color: '#f56918', label: '18.0 µg/m³' },
+    { color: '#c92903', label: '19.9 µg/m³' },
+    { color: '#7a0403', label: '21.9 µg/m³' },
+   ]
+   },
+
+   'Average 2023 pm2.5': {
+  title: 'PM2.5 Average 2023 (µg/m³)',
+  items: [
+    { color: '#30123b', label: '4.79 µg/m³' },
+    { color: '#4662d8', label: '5.47 µg/m³' },
+    { color: '#35abf8', label: '6.16 µg/m³' },
+    { color: '#1be5b5', label: '6.84 µg/m³' },
+    { color: '#74fe5d', label: '7.52 µg/m³' },
+    { color: '#c9ef34', label: '8.21 µg/m³' },
+    { color: '#fbb938', label: '8.89 µg/m³' },
+    { color: '#f56918', label: '9.57 µg/m³' },
+    { color: '#c92903', label: '10.26 µg/m³' },
+    { color: '#7a0403', label: '10.94 µg/m³' },
+  ]
+},
+
+  'Bivariate Map no2': {
+   title: 'NO₂ & Population (Bivariate)',
+   items: [
+    { color: '#fffffe', label: '11' },
+    { color: '#ffe8ee', label: '12' },
+    { color: '#ffcbd7', label: '13' },
+    { color: '#ffaec6', label: '14' },
+    { color: '#ff88a6', label: '15' },
+    { color: '#ddfffe', label: '21' },
+    { color: '#cddfdb', label: '22' },
+    { color: '#bbb8cb', label: '23' },
+    { color: '#a9a8b4', label: '24' },
+    { color: '#b08ea6', label: '25' },
+    { color: '#b9fffc', label: '31' },
+    { color: '#a4dfdd', label: '32' },
+    { color: '#95b6c3', label: '33' },
+    { color: '#8a9cad', label: '34' },
+    { color: '#7d8ba1', label: '35' },
+    { color: '#7cfdfd', label: '41' },
+    { color: '#64dbdc', label: '42' },
+    { color: '#54b5bd', label: '43' },
+    { color: '#4591a0', label: '44' },
+    { color: '#397e8d', label: '45' },
+    { color: '#50fffd', label: '51' },
+    { color: '#44d6d4', label: '52' },
+    { color: '#3c9fad', label: '53' },
+    { color: '#32788f', label: '54' },
+    { color: '#2a6682', label: '55' },
+  ]
+}
   // aggiungi altri layer qui con lo stesso schema
 };
+function getLayerGroup(layer) {
+  let foundGroup = null;
+  map.getLayers().forEach(group => {
+    if (group.getLayers) {
+      group.getLayers().forEach(l => {
+        if (l === layer) foundGroup = group.get('title');
+      });
+    }
+  });
+  return foundGroup;
+}
 
 function updateLegend(layerTitle) {
   const legendContent = document.getElementById('legend-content');
   const legendTitle = document.querySelector('.legend-title');
+  const legendContainer = document.querySelector('.legend-container');
   const data = legendData[layerTitle];
 
   if (!data) {
     legendContent.innerHTML = '';
     legendTitle.textContent = 'Legend';
+    legendContainer.style.border = '6px solid transparent';
     return;
   }
+
+  // trova il gruppo del layer attivo
+  const topLayer = getTopmostVisibleLayer();
+  const groupName = topLayer ? getLayerGroup(topLayer) : null;
+  const color = groupColors[groupName] || '#cccccc';
+  legendContainer.style.border = `6px solid ${color}`;
 
   legendTitle.textContent = data.title;
   legendContent.innerHTML = data.items.map(item => `
@@ -137,7 +318,15 @@ function updateLegend(layerTitle) {
 }
 
 // per ogni overlay layer aggiungi questo listener
-[AMAC, Concentration_2023].forEach(layer => {
+[AMAC_no2, Concentration_2023_no2, Bivariate_map_no2].forEach(layer => {
+  layer.on('change:visible', function() {
+    if (layer.getVisible()) {
+      updateLegend(layer.get('title'));
+    }
+  });
+});
+
+[AMAC_pm2p5, Concentration_2023_pm2p5, Bivariate_map_pm2p5].forEach(layer => {
   layer.on('change:visible', function() {
     if (layer.getVisible()) {
       updateLegend(layer.get('title'));
@@ -149,10 +338,14 @@ function updateLegend(layerTitle) {
 updateLegend();
 
 function getTopmostVisibleLayer() {
-  // overlayLayers è il gruppo, getLayers() restituisce la collezione
-  // i layer sono in ordine bottom→top, quindi reverse() per avere top→bottom
-  const layers = overlayLayers.getLayers().getArray().slice().reverse();
-  return layers.find(layer => layer.getVisible());
+  let result = null;
+  [pm2p5, no2].forEach(group => {  
+    if (result) return;
+    const layers = group.getLayers().getArray().slice().reverse();
+    const found = layers.find(l => l.getVisible());
+    if (found) result = found;
+  });
+  return result;
 }
 
 function refreshLegend() {
@@ -165,7 +358,7 @@ function refreshLegend() {
 }
 
 // ascolta tutti i layer
-[AMAC, Concentration_2023, Average_2023, December_2023].forEach(layer => {
+[Bivariate_map_no2, AMAC_no2, Concentration_2023_no2, Average_2023_no2, December_2023_no2, Bivariate_map_pm2p5, AMAC_pm2p5, Concentration_2023_pm2p5, Average_2023_pm2p5, December_2023_pm2p5].forEach(layer => {
   layer.on('change:visible', function() {
     refreshLegend();
   });
@@ -174,8 +367,80 @@ function refreshLegend() {
 // legenda iniziale
 refreshLegend();
 
-function getTopmostVisibleLayer() {
-  const layers = overlayLayers.getLayers().getArray().slice().reverse();
-  layers.forEach(l => console.log(l.get('title'), l.getVisible()));
-  return layers.find(layer => layer.getVisible());
+
+
+//when clicking on map the function gives you the value
+map.on('singleclick', function(evt) {
+  const topLayer = getTopmostVisibleLayer();
+  if (!topLayer) return;
+
+  const source = topLayer.getSource();
+  if (!source.getFeatureInfoUrl) return;
+
+  const url = source.getFeatureInfoUrl(
+    evt.coordinate,
+    map.getView().getResolution(),
+    map.getView().getProjection(),
+    { 'INFO_FORMAT': 'text/plain', 'FEATURE_COUNT': 1 }
+  );
+
+  if (url) {
+    fetch(url)
+      .then(response => response.text())
+      .then(text => {
+        // per raster
+        let match = text.match(/GRAY_INDEX\s*=\s*([\d\.\-]+)/);
+        let value = null;  // ← aggiungi questa riga
+
+        if (match) {
+          const classe = parseInt(match[1]);
+          const classiConcentration = {
+            1: '≤ 10 µg/m³',
+            2: '10 — 25 µg/m³',
+            3: '25 — 40 µg/m³',
+            4: '40 — 50 µg/m³',
+            5: '> 50 µg/m³'
+          };
+          if (topLayer.get('title') === 'Concentration 2023') {
+            value = classiConcentration[classe] || 'No data';
+          } else {
+            value = parseFloat(match[1]).toFixed(2) + ' µg/m³';
+          }
+        }
+
+        // per vettoriale bivariate
+        if (!value) {
+          const biv = text.match(/bivariate\s*=\s*([\d\.\-]+)/);
+          value = biv ? 'Class: ' + biv[1] : null;
+        }
+
+        // nome area per vettoriali
+        const area = text.match(/gaul2_name\s*=\s*(.+)/);
+        const areaName = area ? area[1].trim() : '';
+
+        if (!value) value = 'No data';
+
+        showPopup(evt.pixel, topLayer.get('title'), value, areaName);
+      })
+      .catch(err => console.log('fetch error:', err));
+  }
+});
+
+function showPopup(pixel, layerTitle, value, areaName) {
+  const existing = document.getElementById('map-popup');
+  if (existing) existing.remove();
+
+  const popup = document.createElement('div');
+  popup.id = 'map-popup';
+  popup.innerHTML = `
+    <div class="popup-content">
+      <span class="popup-close" onclick="this.parentElement.parentElement.remove()">✕</span>
+      <strong>${layerTitle}</strong>
+      ${areaName ? `<p>${areaName}</p>` : ''}
+      <p>Value: <b>${value}</b></p>
+    </div>
+  `;
+  document.getElementById('map').appendChild(popup);
+  popup.style.left = pixel[0] + 'px';
+  popup.style.top = pixel[1] + 'px';
 }

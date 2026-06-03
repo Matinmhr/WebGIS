@@ -14,38 +14,44 @@
   </head>
   <body>
     
-    <!-- Static navbar -->
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="index.html">GIS LAB / Group 16</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li ><a href="index.html">Home</a></li>
-            <li><a href="index.html">pm10</a></li>
-            <li><a href="webgis.html">pm2.5</a></li>
-			<li><a href="no2.html">no2</a></li>  <!-- check the page links -->
-            <li class="active"><a href="webgis.html">WebGIS</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
+<!-- Static navbar -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">GIS LAB / Group 16</a>
     </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li ><a href="index.html">Home</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Results <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="webgishtml">PM10</a></li>
+            <li><a href="index.html">PM2.5</a></li>
+            <li><a href="no2.html">NO2</a></li>
+          </ul>
+        </li>
+        <li class="active"><a href="webgis.html">WebGIS</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
 
     <h1>WebGIS Page</h1>
     
 
    <div id="map-wrapper">
-  <div id="map"></div>
-  <div id="legend" class="legend-container">
-    <span class="legend-title">Legend</span>
-    <div id="legend-content" class="legend-content"></div>
+  <div id="map">
+    <div id="legend" class="legend-container">
+      <span class="legend-title">Legend</span>
+      <div id="legend-content" class="legend-content"></div>
+    </div>
   </div>
 </div>
 
@@ -68,5 +74,7 @@
 
     <script src="https://unpkg.com/ol-layerswitcher@4.1.1/dist/ol-layerswitcher.js"></script>
     <script src="assets/js/webgis.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </body>
 </html>
