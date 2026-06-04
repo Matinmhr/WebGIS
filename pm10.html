@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="PM10 Analysis in Belgium">
+    <meta name="author" content="GIS LAB / Group 16">
     <link rel="shortcut icon" href="assets/ico/favicon.ico">
 
     <title>PM10 Analysis</title>
@@ -48,51 +48,67 @@
 
   <div id="container_pollutant">
 
-    <header id="page-header_pollutant">
+    <!-- HEADER: Updated with bulleted primary sources and removed secondary sources -->
+    <header id="page-header_pollutant" style="margin-bottom: 40px;">
       <h1 id="page-title_pollutant" style="color: #119715;">PM10 | Analysis</h1>
-      <p id="page-subtitle_pollutant">A brief introduction to our PM10 analysis</p>
+      
+      <div id="page-subtitle_pollutant" style="text-align: left; max-width: 900px; margin: 0 auto; line-height: 1.6;">
+        <p>The term <strong>PM10</strong> stands for Particulate Matter. The number 10 indicates microscopic particles (either solid or liquid) suspended in the air with an aerodynamic diameter equal to or less than <strong>10 micrometers (µm)</strong>. Due to their small size, they are inhalable and can easily penetrate the upper respiratory tract.</p>
+        
+        <p style="margin-top: 15px;">PM10 particles are emitted directly into the atmosphere through several <strong>Primary Sources</strong>:</p>
+        <ul style="margin-bottom: 15px;">
+          <li><strong>Road Traffic:</strong> Exhaust emissions (especially from diesel engines) and non-exhaust emissions like brake wear, tire wear, and road surface abrasion.</li>
+          <li><strong>Domestic Heating:</strong> The combustion of fuels, particularly biomass (wood, pellets) and coal during colder months.</li>
+          <li><strong>Industrial Activities:</strong> Manufacturing processes, construction sites, power generation, and waste management.</li>
+          <li><strong>Natural Sources:</strong> Windblown dust, sea salt, pollen, and atmospheric volcanic ash.</li>
+        </ul>
+
+
+        
+        <p style="margin-top: 15px;"><strong>The Belgian Context:</strong> Belgium faces significant challenges regarding air quality due to its exceptionally dense road network, major industrial hubs (like the Port of Antwerp), and a high susceptibility to transboundary pollution coming from the neighboring industrial regions of Germany and the Netherlands.</p>
+      </div>
     </header>
 
+    <!-- SECTIONS -->
     <section id="section-1_pollutant" class="section_pollutant" style="border-bottom: 2px solid #119715;">
-      <img id="img-1_pollutant" src="assets/img/belgium.jpg" alt="Description of image 1">
+      <img id="img-1_pollutant" src="assets/img/CAMS.png" alt="Description of image 1">
       <div id="text-1_pollutant" class="section-text_pollutant">
         <h2 style="color: #119715;">
           <img src="assets/img/Numbers/no2/icon-number-1.svg" alt="NO2 icon" style="width: 48px; height: 48px;">
-          Average</h2>
+          CAMS</h2>
         <p>Text for section 1.</p>
       </div>
     </section>
 
     <section id="section-2_pollutant" class="section_pollutant reverse" style="border-bottom: 2px solid #119715;">
-      <img id="img-2_pollutant" src="assets/img/belgium.jpg" alt="Description of image 2">
+      <img id="img-2_pollutant" src="assets/img/average concentration.png" alt="Description of image 2">
       <div id="text-2_pollutant" class="section-text_pollutant">
         <h2 style="color: #119715;">
            <img src="assets/img/Numbers/no2/icon-number-2.svg" alt="NO2 icon" style="width: 48px; height: 48px;">
-           Section 2 Title</h2>
+           AVERAGE</h2>
         <p>Text for section 2.</p>
       </div>
     </section>
 
     <section id="section-3_pollutant" class="section_pollutant" style="border-bottom: 2px solid #119715;">
-      <img id="img-3_pollutant" src="assets/img/belgium.jpg" alt="Description of image 3">
+      <img id="img-3_pollutant" src="assets/img/CONCENTRATION MAP.png" alt="Description of image 3">
       <div id="text-3_pollutant" class="section-text_pollutant" >
         <h2 style="color: #119715;">
           <img src="assets/img/Numbers/no2/icon-number-3.svg" alt="NO2 icon" style="width: 48px; height: 48px;">
-          Section 3 Title</h2>
+          CONCENTRATION MAP</h2>
         <p>Text for section 3.</p>
       </div>
     </section>
 
     <section id="section-4_pollutant" class="section_pollutant reverse" style="border-bottom: 2px solid #119715;">
-      <img id="img-4_pollutant" src="assets/img/belgium.jpg" alt="Description of image 4">
+      <img id="img-4_pollutant" src="assets/img/AMAC 2021 2023.png" alt="Description of image 4">
       <div id="text-4_pollutant" class="section-text_pollutant">
         <h2 style="color: #119715;">
           <img src="assets/img/Numbers/no2/icon-number-4.svg" alt="NO2 icon" style="width: 48px; height: 48px;">
-          Section 4 Title</h2>
+          AMAC</h2>
         <p>Text for section 4.</p>
       </div>
     </section>
-
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
