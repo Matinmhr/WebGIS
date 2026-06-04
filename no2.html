@@ -10,26 +10,15 @@
 
     <title>NO2 Analysis</title>
 
-    <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
     <link href="assets/css/style.css" rel="stylesheet">
     <link href="assets/css/font-awesome.min.css" rel="stylesheet">
 
-    <!-- Just for debugging purposes. Don't actually copy this line! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
+    </head>
 
   <body>
 
-    <!-- Static navbar -->
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
@@ -43,13 +32,19 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li class="active"><a href="index.html">Home</a></li>
-            <li><a href="about.html">pm10</a></li>
-            <li><a href="#works">pm2.5</a></li>
-			<li><a href="no2.html">no2</a></li>  <!-- check the page links -->
-            <li><a href="#works">WebGIS</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Results <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="pm10.html">PM10</a></li>
+                <li><a href="#works">PM2.5</a></li>
+                <li><a href="no2.html">NO2</a></li>
+              </ul>
+            </li>
+            <li><a href="workflow.html">Workflow</a></li>
+            <li><a href="webgis.html">WebGIS</a></li>
           </ul>
-        </div><!--/.nav-collapse -->
+        </div>
       </div>
     </div>
 
@@ -66,29 +61,7 @@
         <h2 style="color: #8B5CF6;">
           <img src="assets/img/Numbers/no2/icon-number-1.svg" alt="NO2 icon" style="width: 48px; height: 48px;">
           Section 1 Title</h2>
-        <p>Text for section 1.fffffffffffffffffffffff
-          ffff
-          ffff
-          fff
-          fff
-          fff
-          ffff
-          ff
-          fff
-          fff
-          f
-          ffff
-          fff
-          fff
-          fff
-          ff
-          fff
-          ff
-          ffffffffffffffffffffff
-          fff
-          fff
-    
-        </p>
+        <p>Text for section 1.</p>
       </div>
     </section>
 
@@ -122,9 +95,9 @@
       </div>
     </section>
 
-    
-
   </div>
 
-</body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="assets/js/bootstrap.min.js"></script>
+  </body>
 </html>
