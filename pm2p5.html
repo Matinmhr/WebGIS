@@ -1,28 +1,17 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GIS Lab 2026 — Spatial Analysis</title>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PM2.5 WebGIS</title>
 
-    <link href="assets/css/bootstrap.css" rel="stylesheet">
-    <link href="assets/css/style.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ol3/4.6.5/ol.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ol3/4.6.5/ol.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="libraries/v8.2.0-package/ol.css">
     <link rel="stylesheet" href="assets/css/pm2p5.css">
-    
-    <style>
-        /* Aggiunto padding per evitare che la navbar copra il contenuto */
-        body { padding-top: 70px; }
-    </style>
-</head>
-<body>
+    <link rel="stylesheet" href="https://unpkg.com/ol-layerswitcher@4.1.1/dist/ol-layerswitcher.css">
+    <script src="libraries/v8.2.0-package/dist/ol.js"></script>
+  </head>
+  <body>
 
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container">
@@ -38,11 +27,11 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="index.html">Home</a></li>
-            <li class="dropdown">
+            <li class="dropdown active">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Results <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="pm10.html">PM10</a></li>
-                <li><a href="index.html#works">PM2.5</a></li>
+                <li><a href="pm2p5.html">PM2.5</a></li>
                 <li><a href="no2.html">NO2</a></li>
               </ul>
             </li>
@@ -53,75 +42,71 @@
       </div>
     </div>
 
-<div class="wrapper">
+    <h1>PM2.5 WebGIS</h1>
 
-  <div class="map-section">
-    <div id="map"></div>
-
-    <div id="legend">
-      <h3>Legend</h3>
-      <div id="legend-items"></div>
-    </div>
-
-    <div id="layers-panel">
-      <h3>Layers</h3>
-      <div class="layer-item">
-        <input type="radio" name="layer" id="l-osm" value="osm" checked>
-        <label for="l-osm">OpenStreetMap</label>
-      </div>
-      <div class="layer-item">
-        <input type="radio" name="layer" id="l-topo" value="topo">
-        <label for="l-topo">Topographic</label>
-      </div>
-      <div class="layer-item">
-        <input type="radio" name="layer" id="l-satellite" value="satellite">
-        <label for="l-satellite">Satellite (ESRI)</label>
-      </div>
-      <div class="layer-item">
-        <input type="radio" name="layer" id="l-dark" value="dark">
-        <label for="l-dark">CartoDB Dark</label>
-      </div>
-    </div>
-  </div>
-
-  <div class="desc-bar">
-    <span class="desc-label">Layer Info</span>
-    <span id="desc-text">OpenStreetMap — General-purpose street map rendered by OpenStreetMap contributors. Shows roads, buildings, land use, and points of interest worldwide.</span>
-  </div>
-
-  <div class="bottom-row">
-
-    <div class="table-panel">
-      <div class="panel-header"><div class="dot"></div> Data Table</div>
-      <div class="table-scroll">
-        <table id="data-table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Region</th>
-              <th>Area (km²)</th>
-              <th>Population</th>
-              <th>Land Use</th>
-              <th>Coverage</th>
-            </tr>
-          </thead>
-          <tbody id="table-body"></tbody>
-        </table>
+    <div id="map-wrapper">
+      <div id="map">
+        <div id="legend" class="legend-container">
+          <span class="legend-title">Legend</span>
+          <div id="legend-content" class="legend-content"></div>
+        </div>
       </div>
     </div>
 
-    <div class="chart-panel">
-      <div class="panel-header"><div class="dot"></div> Land Use Distribution</div>
-      <div class="chart-body">
-        <canvas id="pie-chart"></canvas>
+    <div id="data-wrapper">
+      <div class="bottom-row">
+        <div class="table-panel">
+          <div class="panel-header">Statistical table for Land Use Changes</div>
+          <div class="table-scroll">
+            <table id="data-table">
+              <thead>
+                <tr>
+                  <th>Indicator</th>
+                  <th>Pixel Percentage</th>
+                  <th>Category</th>
+                </tr>
+              </thead>
+              <tbody id="table-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="chart-panel">
+          <div class="panel-header">PM2.5 Layer Counts</div>
+          <div class="chart-body">
+            <canvas id="bar-chart"></canvas>
+          </div>
+        </div>
+
+        <div class="chart-panel">
+          <div class="panel-header">PM2.5 Product Types</div>
+          <div class="chart-body">
+            <canvas id="pie-chart"></canvas>
+          </div>
+        </div>
       </div>
     </div>
 
-  </div>
-</div>
+    <div id="footerwrap">
+      <div class="container">
+        <div class="row centered">
+          <div class="col-lg-4">
+            <p><b>Matin's mail</b></p>
+          </div>
+          <div class="col-lg-4">
+            <p><b>Pietro's mail</b></p>
+          </div>
+          <div class="col-lg-4">
+            <p>davide2.nolli@mail.polimi.it</p>
+          </div>
+        </div>
+      </div>
+    </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
-<script src="assets/js/pm2p5.js"></script>
-</body>
+    <script src="https://unpkg.com/ol-layerswitcher@4.1.1/dist/ol-layerswitcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <script src="assets/js/pm2p5.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </body>
 </html>
