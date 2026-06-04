@@ -1,39 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GIS Lab 2026 — Spatial Analysis</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIS Lab 2026 — Spatial Analysis</title>
 
-<!-- OpenLayers -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ol3/4.6.5/ol.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ol3/4.6.5/ol.js"></script>
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
 
-<!-- Chart.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ol3/4.6.5/ol.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ol3/4.6.5/ol.js"></script>
 
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="assets/css/pm2p5.css">
+    
+    <style>
+        /* Aggiunto padding per evitare che la navbar copra il contenuto */
+        body { padding-top: 70px; }
+    </style>
 </head>
 <body>
 
-
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html">GIS LAB / Group 16</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="index.html">Home</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Results <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="pm10.html">PM10</a></li>
+                <li><a href="index.html#works">PM2.5</a></li>
+                <li><a href="no2.html">NO2</a></li>
+              </ul>
+            </li>
+            <li><a href="workflow.html">Workflow</a></li>
+            <li><a href="webgis.html">WebGIS</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
 
 <div class="wrapper">
 
-  <!-- MAP -->
   <div class="map-section">
     <div id="map"></div>
 
-    <!-- LEGEND -->
     <div id="legend">
       <h3>Legend</h3>
       <div id="legend-items"></div>
     </div>
 
-    <!-- LAYERS -->
     <div id="layers-panel">
       <h3>Layers</h3>
       <div class="layer-item">
@@ -55,16 +84,13 @@
     </div>
   </div>
 
-  <!-- DESCRIPTION -->
   <div class="desc-bar">
     <span class="desc-label">Layer Info</span>
     <span id="desc-text">OpenStreetMap — General-purpose street map rendered by OpenStreetMap contributors. Shows roads, buildings, land use, and points of interest worldwide.</span>
   </div>
 
-  <!-- BOTTOM ROW -->
   <div class="bottom-row">
 
-    <!-- TABLE -->
     <div class="table-panel">
       <div class="panel-header"><div class="dot"></div> Data Table</div>
       <div class="table-scroll">
@@ -84,7 +110,6 @@
       </div>
     </div>
 
-    <!-- PIE CHART -->
     <div class="chart-panel">
       <div class="panel-header"><div class="dot"></div> Land Use Distribution</div>
       <div class="chart-body">
@@ -95,6 +120,8 @@
   </div>
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
 <script src="assets/js/pm2p5.js"></script>
 </body>
 </html>
