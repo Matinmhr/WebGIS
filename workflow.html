@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Workflow — GIS Project 2025/26</title>
+
+  <link href="assets/css/bootstrap.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="assets/css/font-awesome.min.css" rel="stylesheet">
+
+  <style>
+    /* ── NAVBAR grey override ── */
+    .navbar-default {
+      background-color: #000 !important;
+      border-color: #111 !important;
+    }
+    .navbar-default .navbar-brand,
+    .navbar-default .nav > li > a {
+      color: #e8e8e8 !important;
+    }
+    .navbar-default .navbar-brand:hover,
+    .navbar-default .nav > li > a:hover {
+      color: #fff !important;
+      background-color: #222 !important;
+    }
+    .navbar-default .nav > li.active > a,
+    .navbar-default .nav > li.active > a:hover {
+      color: #fff !important;
+      background-color: #111 !important;
+    }
+    .navbar-default .navbar-toggle { border-color: #555; }
+    .navbar-default .navbar-toggle .icon-bar { background-color: #ccc; }
+    .navbar-default .dropdown-menu {
+      background-color: #000;
+      border-color: #111;
+    }
+    .navbar-default .dropdown-menu > li > a {
+      color: #e8e8e8 !important;
+    }
+    .navbar-default .dropdown-menu > li > a:hover {
+      background-color: #222 !important;
+      color: #fff !important;
+    }
+
+    /* ── HERO BANNER ── */
+    #workflow-hero {
+      background: #000;
+      padding: 60px 0 50px;
+      text-align: center;
+      border-bottom: 3px solid #222;
+      margin-bottom: 0;
+    }
+    #workflow-hero .mono-tag {
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #666;
+      margin-bottom: 16px;
+    }
+    #workflow-hero h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    #workflow-hero p {
+      color: #bbb;
+      font-size: 1rem;
+      max-width: 720px;
+      margin: 0 auto 30px;
+      line-height: 1.8;
+    }
+    .meta-strip {
+      display: inline-flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0;
+      border: 1px solid #333;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .meta-strip .meta-item {
+      padding: 10px 22px;
+      border-right: 1px solid #333;
+      text-align: left;
+    }
+    .meta-strip .meta-item:last-child { border-right: none; }
+    .meta-strip .meta-key {
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #666;
+      display: block;
+      margin-bottom: 3px;
+    }
+    .meta-strip .meta-val {
+      font-size: 0.88rem;
+      color: #ccc;
+      font-weight: 500;
+    }
+
+    /* ── PAGE LAYOUT ── */
+    #page-body {
+      display: flex;
+      align-items: flex-start;
+    }
+
+    /* ── SIDEBAR ── */
+    #toc-sidebar {
+      width: 260px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 52px;
+      height: calc(100vh - 52px);
+      overflow-y: auto;
+      background: #f8f8f8;
+      border-right: 1px solid #e0e0e0;
+      padding: 28px 16px;
+    }
+    .toc-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 12px;
+    }
+    .toc-list { list-style: none; padding: 0; margin: 0; }
+    .toc-list li { margin-bottom: 2px; }
+    .toc-list a {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: 4px;
+      font-size: 0.88rem;
+      color: #666;
+      text-decoration: none;
+      transition: background 0.12s, color 0.12s;
+      line-height: 1.4;
+    }
+    .toc-list a:hover { background: #ebebeb; color: #333; }
+    .toc-list a.active { background: #000; color: #fff; }
+    .toc-num {
+      font-size: 0.7rem;
+      color: #bbb;
+      flex-shrink: 0;
+      margin-top: 2px;
+      min-width: 20px;
+    }
+    .toc-list a.active .toc-num { color: #888; }
+
+    /* ── MAIN CONTENT ── */
+    #main-content {
+      flex: 1;
+      padding: 50px 55px 80px;
+      min-width: 0;
+    }
+
+    /* ── STEP ── */
+    .step-section {
+      margin-bottom: 56px;
+      padding-bottom: 56px;
+      border-bottom: 1px solid #e5e5e5;
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.45s ease, transform 0.45s ease;
+    }
+    .step-section:last-child { border-bottom: none; }
+    .step-section.visible { opacity: 1; transform: none; }
+
+    .step-header {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+    .step-counter {
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      color: #bbb;
+      flex-shrink: 0;
+      padding-top: 5px;
+    }
+    .step-section h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #2a2a2a;
+      margin: 0;
+    }
+    .step-context {
+      color: #777;
+      font-size: 0.97rem;
+      line-height: 1.85;
+      margin-bottom: 18px;
+    }
+
+    /* ── PANEL ── */
+    .info-panel {
+      background: #f7f7f7;
+      border: 1px solid #e5e5e5;
+      border-left: 3px solid #2f2f2f;
+      border-radius: 0 4px 4px 0;
+      padding: 18px 22px;
+      margin-bottom: 10px;
+    }
+    .panel-label {
+      font-size: 0.76rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #000;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+    .info-panel p {
+      font-size: 0.95rem;
+      color: #555;
+      line-height: 1.8;
+      margin: 0;
+    }
+    .info-panel p + p { margin-top: 8px; }
+
+    /* ── TABLE ── */
+    .tbl-wrap { overflow-x: auto; margin: 12px 0; }
+    .tbl-wrap table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+    }
+    .tbl-wrap thead tr { border-bottom: 2px solid #2f2f2f; }
+    .tbl-wrap th {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #666;
+      padding: 9px 14px;
+      font-weight: 600;
+      text-align: left;
+    }
+    .tbl-wrap td {
+      padding: 9px 14px;
+      border-bottom: 1px solid #ececec;
+      color: #555;
+    }
+    .tbl-wrap tr:last-child td { border-bottom: none; }
+    .tbl-wrap td:first-child {
+      font-weight: 600;
+      color: #333;
+    }
+    .tbl-wrap tbody tr:hover { background: #fafafa; }
+
+    /* ── CODE / FORMULA ── */
+    code {
+      font-size: 0.87em;
+      background: rgba(0,0,0,0.07);
+      padding: 0.1em 0.35em;
+      border-radius: 2px;
+      color: #222;
+    }
+    .formula-block {
+      background: #000;
+      color: #a8c4e0;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.9rem;
+      padding: 14px 18px;
+      border-radius: 4px;
+      margin: 12px 0;
+      overflow-x: auto;
+    }
+
+    /* ── NOTE ── */
+    .note {
+      border-left: 3px solid #c8b060;
+      background: #fffbef;
+      padding: 12px 18px;
+      margin-top: 12px;
+      font-size: 0.92rem;
+      color: #5a5020;
+      border-radius: 0 3px 3px 0;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      #toc-sidebar { display: none; }
+      #main-content { padding: 28px 18px 60px; }
+      #workflow-hero h1 { font-size: 1.9rem; letter-spacing: 1px; }
+      .meta-strip .meta-item { border-right: none; border-bottom: 1px solid #555; }
+      .meta-strip .meta-item:last-child { border-bottom: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVBAR (identical to site) ── -->
+  <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">GIS LAB / Group 16</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="index.html">Home</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Results <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="pm10.html">PM10</a></li>
+              <li><a href="#works">PM2.5</a></li>
+              <li><a href="no2.html">NO2</a></li>
+            </ul>
+          </li>
+          <li class="active"><a href="workflow.html">Workflow</a></li>
+          <li><a href="webgis.html">WebGIS</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── HERO ── -->
+  <div id="workflow-hero">
+    <div class="mono-tag">Mapping Air Quality · Land Cover Transitions · Population Exposure</div>
+    <h1>Processing Workflow</h1>
+    <p>This document describes the processing pipeline followed to produce all project outputs. We work with 3 types of pollutant (NO₂, PM₂.₅, PM₁₀). We applied the same methodological workflow independently on each pollutant, over the same study area (Belgium) and the same reference period (2021–2023). All spatial operations were performed in QGIS using the WGS 84 coordinate reference system (EPSG:4326).</p>
+    <div class="meta-strip">
+      <div class="meta-item">
+        <span class="meta-key">Course</span>
+        <span class="meta-val">Geographic Information Systems</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-key">Academic year</span>
+        <span class="meta-val">A.A. 2025/26</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-key">Case study</span>
+        <span class="meta-val">Belgium</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-key">Data sources</span>
+        <span class="meta-val">CAMS · ESRI LC · WorldPop · FAO GAUL</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── BODY ── -->
+  <div id="page-body">
+
+    <nav id="toc-sidebar">
+      <div class="toc-label">Contents</div>
+      <ul class="toc-list">
+        <li><a href="#step1" class="toc-link"><span class="toc-num">01</span>December 2023 pollutant maps</a></li>
+        <li><a href="#step2" class="toc-link"><span class="toc-num">02</span>Annual average maps 2023</a></li>
+        <li><a href="#step3" class="toc-link"><span class="toc-num">03</span>Concentration classification</a></li>
+        <li><a href="#step4" class="toc-link"><span class="toc-num">04</span>Annual mean change 2021–2023</a></li>
+        <li><a href="#step5" class="toc-link"><span class="toc-num">05</span>Land cover change map</a></li>
+        <li><a href="#step6" class="toc-link"><span class="toc-num">06</span>LC–pollutant zonal statistics</a></li>
+        <li><a href="#step7" class="toc-link"><span class="toc-num">07</span>Bivariate population map</a></li>
+        <li><a href="#step8" class="toc-link"><span class="toc-num">08</span>Population exposure pie chart</a></li>
+      </ul>
+    </nav>
+
+    <main id="main-content">
+
+      <section class="step-section" id="step1">
+        <div class="step-header">
+          <span class="step-counter">01 / 08</span>
+          <h2>Pollutant maps for December 2023</h2>
+        </div>
+        <p class="step-context">The starting point of the analysis required producing monthly-average raster maps of NO₂, PM₂.₅, and PM₁₀ concentration for December 2023, clipped to the national boundaries of the case study.</p>
+        <div class="info-panel">
+          <div class="panel-label">Data acquisition</div>
+          <p>Hourly pollutant concentration data were downloaded from the CAMS European Air Quality Reanalysis platform (Copernicus Atmosphere Monitoring Service) in NetCDF format. The download configuration used the Ensemble median model, surface level (0), Validated Reanalysis type, for December 2023, covering NO₂, PM₂.₅, and PM₁₀ simultaneously.</p>
+        </div>
+      </section>
+
+      <section class="step-section" id="step2">
+        <div class="step-header">
+          <span class="step-counter">02 / 08</span>
+          <h2>Annual average pollutant maps for 2023</h2>
+        </div>
+        <p class="step-context">To characterise the general air quality conditions across the study area, the 12 monthly rasters for each pollutant were aggregated into a single annual mean for both 2021 and 2023. We compute also the 2021 averages as they are needed for the temporal trend analysis in Step 4.</p>
+        <div class="info-panel">
+          <div class="panel-label">Monthly data and clipping</div>
+          <p>For the year 2021, monthly GeoTIFF files were pre-processed and available in the shared project folder. For 2023, the monthly maps produced in Step 1 were supplemented by the remaining 11 months available in the same repository. All 12 monthly rasters per year were clipped to the national boundary before aggregation, ensuring CRS consistency across all inputs.</p>
+        </div>
+      </section>
+
+      <section class="step-section" id="step3">
+        <div class="step-header">
+          <span class="step-counter">03 / 08</span>
+          <h2>Concentration classification maps for 2023</h2>
+        </div>
+        <p class="step-context">The annual mean rasters were reclassified into five discrete concentration levels according to the EU annual limit values established by the European Environment Agency (EEA), enabling a direct assessment of regulatory compliance and spatial distribution of exposure risk.</p>
+        <div class="info-panel">
+          <div class="panel-label">EU classification thresholds</div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr><th>Level</th><th>NO₂ [µg/m³]</th><th>PM₂.₅ [µg/m³]</th><th>PM₁₀ [µg/m³]</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>1</td><td>≤ 10</td><td>≤ 5</td><td>≤ 15</td></tr>
+                <tr><td>2</td><td>10 – 25</td><td>5 – 10</td><td>15 – 31</td></tr>
+                <tr><td>3</td><td>25 – 40</td><td>10 – 20</td><td>31 – 40</td></tr>
+                <tr><td>4</td><td>40 – 50</td><td>20 – 25</td><td>40 – 50</td></tr>
+                <tr><td>5</td><td>&gt; 50</td><td>&gt; 25</td><td>&gt; 50</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="margin-top:8px; font-size:0.8rem; color:#999;">Annual limit values: NO₂ = 40 µg/m³ &nbsp;·&nbsp; PM₂.₅ = 25 µg/m³ &nbsp;·&nbsp; PM₁₀ = 40 µg/m³</p>
+        </div>
+      </section>
+
+      <section class="step-section" id="step4">
+        <div class="step-header">
+          <span class="step-counter">04 / 08</span>
+          <h2>Annual Mean Aggregation Change 2021–2023</h2>
+        </div>
+        <p class="step-context">Before integrating land cover data, a bitemporal difference map was produced for each pollutant to independently quantify the spatial evolution of air quality concentrations over the 2021–2023 period. This change detection layer identifies areas of improvement, deterioration, or stability.</p>
+        <div class="info-panel">
+          <div class="panel-label">Bitemporal difference</div>
+          <p>The AMAC (Annual Mean Aggregation Change) raster was derived by subtracting the 2021 annual mean from the 2023 annual mean using the Raster Calculator. Positive values indicate areas where concentrations increased (environmental risk zones); negative values indicate areas of improvement; values near zero represent atmospheric stability. The two input rasters were verified to share the same spatial extent and resolution prior to computation.</p>
+          <div class="formula-block">Belgium average pollutant of 2023 − Belgium average pollutant of 2021</div>
+        </div>
+      </section>
+
+      <section class="step-section" id="step5">
+        <div class="step-header">
+          <span class="step-counter">05 / 08</span>
+          <h2>Land Cover Change map 2021–2023</h2>
+        </div>
+        <p class="step-context">To contextualise air quality trends within land use dynamics, a land cover change detection map was produced using the ESRI 10m Annual Land Cover product (ArcGIS Living Atlas of the World) for 2021 and 2023.</p>
+        <div class="info-panel">
+          <div class="panel-label">Land cover preprocessing</div>
+          <p>GeoTIFF tiles for 2021 and 2023 were downloaded, reprojected to WGS 84, merged where the study area spanned multiple tiles, and clipped to the national boundary. A pixel value of 0 was assigned as NoData. Symbology was applied using the standard style file provided in the course repository.</p>
+          <div class="note">Cloud pixels (code 10) are treated as NoData throughout the entire transition analysis. Any transition involving code 10 — either as origin (10xx) or destination (x10) — is excluded from statistical computations.</div>
+        </div>
+      </section>
+
+      <section class="step-section" id="step6">
+        <div class="step-header">
+          <span class="step-counter">06 / 08</span>
+          <h2>Zonal statistics: land cover transitions vs. pollutant change</h2>
+        </div>
+        <p class="step-context">To spatially correlate land cover transitions with changes in pollutant concentrations, zonal statistics (mean, minimum, maximum) of the AMAC raster were extracted for three land cover change zones — Stable, Gain, and Loss — corresponding to the classes.</p>
+        <div class="info-panel">
+          <div class="panel-label">Binary change mask and resampling</div>
+          <p>Because CAMS data (~1 km/pixel) and ESRI Land Cover (~10 m/pixel) operate at very different spatial resolutions, the AMAC raster was resampled to match the land cover grid resolution before any spatial overlap analysis. A binary change mask was then produced from the LCC raster using the GDAL Raster Calculator, classifying pixels into three categories: <strong>Stable</strong> (land cover unchanged), <strong>Gain</strong> (new areas of the target class in 2023), and <strong>Loss</strong> (areas that were the target class in 2021 but changed by 2023). Cloud transitions were excluded by design through the mask formula.</p>
+        </div>
+      </section>
+
+      <section class="step-section" id="step7">
+        <div class="step-header">
+          <span class="step-counter">07 / 08</span>
+          <h2>Bivariate map: pollutant concentration and population density</h2>
+        </div>
+        <p class="step-context">A bivariate choropleth map at GAUL Administrative Level 2 was produced to visualise the joint spatial distribution of pollutant concentration and population density, identifying areas simultaneously exposed to high pollution and high population counts.</p>
+        <div class="info-panel">
+          <div class="panel-label">Population data and classification</div>
+          <p>Population counts for 2023 were sourced from WorldPop (Unconstrained, 100 m resolution). Internal NoData values (-99999) within the study area were reset to zero before classification, while preserving NoData outside the boundary. Five population classes were derived using quantile-based boundaries computed with <code>r.quantile</code> (4 quantiles + class 1 for zero-population cells). The population raster was then reclassified accordingly.</p>
+        </div>
+      </section>
+
+      <section class="step-section" id="step8">
+        <div class="step-header">
+          <span class="step-counter">08 / 08</span>
+          <h2>Population exposure by concentration class — pie chart</h2>
+        </div>
+        <p class="step-context">The final output quantifies the share of the national population exposed to each of the five EU concentration classes, providing a synthetic indicator of public health exposure that integrates both spatial extent and population density.</p>
+        <div class="info-panel">
+          <div class="panel-label">Aggregation and population sum per class</div>
+          <p>The bivariate layer from Step 7 was dissolved by the <code>pol_class_max</code> field, producing at most five features — one per concentration level. Against this dissolved layer, a new zonal statistics run was performed using the original (non-classified) population count raster, computing the total population sum within each concentration zone. The result is a compact vector layer with up to five rows associating each pollution class with the total population exposed to it.</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ── FOOTER (identical to site) ── -->
+  <div id="footerwrap">
+    <div class="container">
+      <div class="row centered">
+        <div class="col-lg-4"><p><b>Matin's mail</b></p></div>
+        <div class="col-lg-4"><p><b>pietro.giordano@mail.polimi.it</b></p></div>
+        <div class="col-lg-4"><p>davide2.nolli@mail.polimi.it</p></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="assets/js/bootstrap.min.js"></script>
+
+  <script>
+    // Scroll-in animation
+    const steps = document.querySelectorAll('.step-section');
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.06 });
+    steps.forEach(s => obs.observe(s));
+
+    // TOC active highlight
+    const secObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        const link = document.querySelector('.toc-link[href="#' + e.target.id + '"]');
+        if (link) link.classList.toggle('active', e.isIntersecting);
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    steps.forEach(s => secObs.observe(s));
+  </script>
+</body>
+</html>
