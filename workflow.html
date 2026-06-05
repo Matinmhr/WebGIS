@@ -11,6 +11,17 @@
   <link href="assets/css/font-awesome.min.css" rel="stylesheet">
 
   <style>
+    /* ── BASE ── */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; font-size: 20px; }
+
+    body {
+      font-size: 1rem;
+      color: #2f2f2f;
+      background: #fff;
+      -webkit-font-smoothing: antialiased;
+    }
+
     /* ── NAVBAR grey override ── */
     .navbar-default {
       background-color: #000 !important;
@@ -47,7 +58,7 @@
     /* ── HERO BANNER ── */
     #workflow-hero {
       background: #000;
-      padding: 60px 0 50px;
+      padding: 70px 40px 60px;
       text-align: center;
       border-bottom: 3px solid #222;
       margin-bottom: 0;
@@ -60,17 +71,17 @@
       margin-bottom: 16px;
     }
     #workflow-hero h1 {
-      font-size: 2.8rem;
+      font-size: 3.4rem;
       font-weight: 700;
       color: #fff;
-      letter-spacing: 2px;
+      letter-spacing: 3px;
       text-transform: uppercase;
       margin-bottom: 20px;
     }
     #workflow-hero p {
       color: #bbb;
       font-size: 1rem;
-      max-width: 720px;
+      max-width: 800px;
       margin: 0 auto 30px;
       line-height: 1.8;
     }
@@ -90,7 +101,7 @@
     }
     .meta-strip .meta-item:last-child { border-right: none; }
     .meta-strip .meta-key {
-      font-size: 0.68rem;
+      font-size: 0.7rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: #666;
@@ -98,7 +109,7 @@
       margin-bottom: 3px;
     }
     .meta-strip .meta-val {
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       color: #ccc;
       font-weight: 500;
     }
@@ -111,7 +122,7 @@
 
     /* ── SIDEBAR ── */
     #toc-sidebar {
-      width: 260px;
+      width: 280px;
       flex-shrink: 0;
       position: sticky;
       top: 52px;
@@ -119,14 +130,14 @@
       overflow-y: auto;
       background: #f8f8f8;
       border-right: 1px solid #e0e0e0;
-      padding: 28px 16px;
+      padding: 32px 20px;
     }
     .toc-label {
-      font-size: 0.72rem;
+      font-size: 0.75rem;
       letter-spacing: 0.16em;
       text-transform: uppercase;
       color: #999;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
     .toc-list { list-style: none; padding: 0; margin: 0; }
     .toc-list li { margin-bottom: 2px; }
@@ -136,7 +147,7 @@
       gap: 10px;
       padding: 8px 10px;
       border-radius: 4px;
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       color: #666;
       text-decoration: none;
       transition: background 0.12s, color 0.12s;
@@ -145,25 +156,25 @@
     .toc-list a:hover { background: #ebebeb; color: #333; }
     .toc-list a.active { background: #000; color: #fff; }
     .toc-num {
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       color: #bbb;
       flex-shrink: 0;
       margin-top: 2px;
       min-width: 20px;
     }
-    .toc-list a.active .toc-num { color: #888; }
+    .toc-list a.active .toc-num { color: #aaa; }
 
     /* ── MAIN CONTENT ── */
     #main-content {
       flex: 1;
-      padding: 50px 55px 80px;
+      padding: 60px 80px 100px 70px;
       min-width: 0;
     }
 
     /* ── STEP ── */
     .step-section {
-      margin-bottom: 56px;
-      padding-bottom: 56px;
+      margin-bottom: 60px;
+      padding-bottom: 60px;
       border-bottom: 1px solid #e5e5e5;
       opacity: 0;
       transform: translateY(14px);
@@ -176,47 +187,47 @@
       display: flex;
       align-items: baseline;
       gap: 16px;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
     }
     .step-counter {
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       letter-spacing: 0.12em;
       color: #bbb;
       flex-shrink: 0;
-      padding-top: 5px;
+      padding-top: 6px;
     }
     .step-section h2 {
-      font-size: 1.6rem;
+      font-size: 1.7rem;
       font-weight: 700;
       color: #2a2a2a;
       margin: 0;
     }
     .step-context {
       color: #777;
-      font-size: 0.97rem;
+      font-size: 1rem;
       line-height: 1.85;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
     }
 
     /* ── PANEL ── */
     .info-panel {
       background: #f7f7f7;
       border: 1px solid #e5e5e5;
-      border-left: 3px solid #2f2f2f;
+      border-left: 3px solid #000;
       border-radius: 0 4px 4px 0;
-      padding: 18px 22px;
-      margin-bottom: 10px;
+      padding: 20px 24px;
+      margin-bottom: 12px;
     }
     .panel-label {
-      font-size: 0.76rem;
+      font-size: 0.78rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: #000;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       font-weight: 700;
     }
     .info-panel p {
-      font-size: 0.95rem;
+      font-size: 1rem;
       color: #555;
       line-height: 1.8;
       margin: 0;
@@ -228,14 +239,14 @@
     .tbl-wrap table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.92rem;
+      font-size: 0.95rem;
     }
-    .tbl-wrap thead tr { border-bottom: 2px solid #2f2f2f; }
+    .tbl-wrap thead tr { border-bottom: 2px solid #000; }
     .tbl-wrap th {
-      font-size: 0.75rem;
+      font-size: 0.78rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: #666;
+      color: #888;
       padding: 9px 14px;
       font-weight: 600;
       text-align: left;
@@ -244,6 +255,7 @@
       padding: 9px 14px;
       border-bottom: 1px solid #ececec;
       color: #555;
+      font-size: 0.95rem;
     }
     .tbl-wrap tr:last-child td { border-bottom: none; }
     .tbl-wrap td:first-child {
@@ -254,21 +266,22 @@
 
     /* ── CODE / FORMULA ── */
     code {
-      font-size: 0.87em;
-      background: rgba(0,0,0,0.07);
+      font-size: 0.88em;
+      background: rgba(0,0,0,0.06);
       padding: 0.1em 0.35em;
       border-radius: 2px;
       color: #222;
     }
     .formula-block {
-      background: #000;
+      background: #111;
       color: #a8c4e0;
       font-family: 'Courier New', Courier, monospace;
-      font-size: 0.9rem;
-      padding: 14px 18px;
+      font-size: 0.92rem;
+      padding: 16px 20px;
       border-radius: 4px;
       margin: 12px 0;
       overflow-x: auto;
+      white-space: nowrap;
     }
 
     /* ── NOTE ── */
@@ -277,16 +290,22 @@
       background: #fffbef;
       padding: 12px 18px;
       margin-top: 12px;
-      font-size: 0.92rem;
+      font-size: 0.95rem;
       color: #5a5020;
       border-radius: 0 3px 3px 0;
     }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 768px) {
+    @media (max-width: 992px) {
       #toc-sidebar { display: none; }
-      #main-content { padding: 28px 18px 60px; }
-      #workflow-hero h1 { font-size: 1.9rem; letter-spacing: 1px; }
+      #main-content { padding: 36px 40px 80px; }
+    }
+    @media (max-width: 768px) {
+      html { font-size: 17px; }
+      #main-content { padding: 28px 22px 60px; }
+      #workflow-hero { padding: 50px 20px 40px; }
+      #workflow-hero h1 { font-size: 2rem; letter-spacing: 1px; }
+      .meta-strip { flex-direction: column; }
       .meta-strip .meta-item { border-right: none; border-bottom: 1px solid #555; }
       .meta-strip .meta-item:last-child { border-bottom: none; }
     }
@@ -294,7 +313,7 @@
 </head>
 <body>
 
-  <!-- ── NAVBAR (identical to site) ── -->
+  <!-- ── NAVBAR ── -->
   <div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
       <div class="navbar-header">
@@ -330,22 +349,6 @@
     <h1>Processing Workflow</h1>
     <p>This document describes the processing pipeline followed to produce all project outputs. We work with 3 types of pollutant (NO₂, PM₂.₅, PM₁₀). We applied the same methodological workflow independently on each pollutant, over the same study area (Belgium) and the same reference period (2021–2023). All spatial operations were performed in QGIS using the WGS 84 coordinate reference system (EPSG:4326).</p>
     <div class="meta-strip">
-      <div class="meta-item">
-        <span class="meta-key">Course</span>
-        <span class="meta-val">Geographic Information Systems</span>
-      </div>
-      <div class="meta-item">
-        <span class="meta-key">Academic year</span>
-        <span class="meta-val">A.A. 2025/26</span>
-      </div>
-      <div class="meta-item">
-        <span class="meta-key">Case study</span>
-        <span class="meta-val">Belgium</span>
-      </div>
-      <div class="meta-item">
-        <span class="meta-key">Data sources</span>
-        <span class="meta-val">CAMS · ESRI LC · WorldPop · FAO GAUL</span>
-      </div>
     </div>
   </div>
 
@@ -483,7 +486,7 @@
     </main>
   </div>
 
-  <!-- ── FOOTER (identical to site) ── -->
+  <!-- ── FOOTER ── -->
   <div id="footerwrap">
     <div class="container">
       <div class="row centered">
@@ -498,7 +501,6 @@
   <script src="assets/js/bootstrap.min.js"></script>
 
   <script>
-    // Scroll-in animation
     const steps = document.querySelectorAll('.step-section');
     const obs = new IntersectionObserver(entries => {
       entries.forEach(e => {
@@ -507,7 +509,6 @@
     }, { threshold: 0.06 });
     steps.forEach(s => obs.observe(s));
 
-    // TOC active highlight
     const secObs = new IntersectionObserver(entries => {
       entries.forEach(e => {
         const link = document.querySelector('.toc-link[href="#' + e.target.id + '"]');

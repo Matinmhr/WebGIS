@@ -21,7 +21,13 @@
     color: #a4003a;
     text-shadow: none;
 }
+.footer-label {
+    color: #ffffff; /* Un colore per le etichette */
+}
 
+.footer-val {
+    color: #ffffff; /* Un colore diverso per i valori */
+}
 ::selection {
     background: #16a085;
     color: #a4003a;
@@ -300,6 +306,7 @@ h1, h2, h3, h4, h5, h6 {
     width: 100%;
   }
 }
+
 
 .gallery {
   text-align: center;
