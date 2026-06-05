@@ -6,11 +6,11 @@ const osm = new ol.layer.Tile({
   source: new ol.source.OSM()
 });
 
-const groupColors = { //legend colours
-  'Base Maps': '#3498db',      // blu
-  'no2 Layers': '#8B5CF6',
-  'pm10 Layers': '#F97316',
-  'pm2.5 Layers': '#EF4444'
+const groupColors = {
+  'Base Maps': '#3498db',
+  'NO2': '#8B5CF6',      // ← deve corrispondere al title del gruppo
+  'PM2.5': '#EF4444',    // ← idem
+  'PM10': '#F97316'      // ← idem
 };
 
 const sentinel2 = new ol.layer.Tile({ //default one
@@ -69,6 +69,15 @@ let Bivariate_map_no2 = new ol.layer.Image({
   })
 });
 
+let LCC_no2 = new ol.layer.Image({
+  title: 'LCC built area',
+  visible: false,
+  source: new ol.source.ImageWMS({
+    url: 'https://www.gis-geoserver.polimi.it/geoserver/gisgeoserver_16/wms',
+    params: { 'LAYERS': 'gisgeoserver_16:Belgium_LCC_2021_2023_built_area', 'FORMAT': 'image/png', 'TRANSPARENT': true }
+  })
+});
+
 
 // pm2.5 layers
 let December_2023_pm2p5 = new ol.layer.Image({
@@ -116,6 +125,71 @@ let Bivariate_map_pm2p5 = new ol.layer.Image({
   })
 });
 
+let LCC_pm2p5 = new ol.layer.Image({
+  title: 'LCC crops',
+  visible: false,
+  source: new ol.source.ImageWMS({
+    url: 'https://www.gis-geoserver.polimi.it/geoserver/gisgeoserver_16/wms',
+    params: { 'LAYERS': 'gisgeoserver_16:Belgium_LCC_2021_2023_crops', 'FORMAT': 'image/png', 'TRANSPARENT': true }
+  })
+});
+
+
+//pm10 layers
+let December_2023_pm10 = new ol.layer.Image({
+  title: 'December 2023 pm10',
+  visible: false,
+  source: new ol.source.ImageWMS({
+    url: 'https://www.gis-geoserver.polimi.it/geoserver/gisgeoserver_16/wms',
+    params: { 'LAYERS': 'gisgeoserver_16:Belgium_CAMS_pm10_2023_12', 'FORMAT': 'image/png', 'TRANSPARENT': true }
+  })
+});
+
+let AMAC_pm10 = new ol.layer.Image({
+  title: 'AMAC pm10',
+  visible: false,
+  source: new ol.source.ImageWMS({
+    url: 'https://www.gis-geoserver.polimi.it/geoserver/gisgeoserver_16/wms',
+    params: { 'LAYERS': 'gisgeoserver_16:Belgium_pm10_2021_2023_AMAC_map', 'FORMAT': 'image/png', 'TRANSPARENT': true }
+  })
+});
+
+let Average_2023_pm10= new ol.layer.Image({
+  title: 'Average 2023 pm10',
+  visible: false,
+  source: new ol.source.ImageWMS({
+    url: 'https://www.gis-geoserver.polimi.it/geoserver/gisgeoserver_16/wms',
+    params: { 'LAYERS': 'gisgeoserver_16:Belgium_average_pm10_2023', 'FORMAT': 'image/png', 'TRANSPARENT': true }
+  })
+});
+
+let Concentration_2023_pm10 = new ol.layer.Image({
+  title: 'Concentration 2023 pm10',
+  visible: false,
+  source: new ol.source.ImageWMS({
+    url: 'https://www.gis-geoserver.polimi.it/geoserver/gisgeoserver_16/wms',
+    params: { 'LAYERS': 'gisgeoserver_16:Belgium_pm10_concentration_map_2023', 'FORMAT': 'image/png', 'TRANSPARENT': true }
+  })
+});
+
+let Bivariate_map_pm10 = new ol.layer.Image({
+  title: 'Bivariate Map pm10',
+  visible: false,
+  source: new ol.source.ImageWMS({
+    url: 'https://www.gis-geoserver.polimi.it/geoserver/gisgeoserver_16/wms',
+    params: { 'LAYERS': 'gisgeoserver_16:Belgium_pm10_2023_bivariate', 'FORMAT': 'image/png', 'TRANSPARENT': true }
+  })
+});
+
+let LCC_pm10 = new ol.layer.Image({
+  title: 'LCC trees',
+  visible: false,
+  source: new ol.source.ImageWMS({
+    url: 'https://www.gis-geoserver.polimi.it/geoserver/gisgeoserver_16/wms',
+    params: { 'LAYERS': 'gisgeoserver_16:Belgium_LCC_2021_2023_tree', 'FORMAT': 'image/png', 'TRANSPARENT': true }
+  })
+});
+
 // aggiungi colombiaRivers e colombiaRoads allo stesso modo...
 
 // 3. GRUPPI
@@ -126,12 +200,17 @@ let basemapLayers = new ol.layer.Group({
 
 let no2 = new ol.layer.Group({
   title: 'NO2',
-  layers: [Bivariate_map_no2, AMAC_no2, Concentration_2023_no2, Average_2023_no2,  December_2023_no2]
+  layers: [LCC_no2, Bivariate_map_no2, AMAC_no2, Concentration_2023_no2, Average_2023_no2,  December_2023_no2]
 });
 
 let pm2p5 = new ol.layer.Group({
   title: 'PM2.5',
-  layers: [Bivariate_map_pm2p5, AMAC_pm2p5, Concentration_2023_pm2p5, Average_2023_pm2p5,  December_2023_pm2p5]
+  layers: [LCC_pm2p5, Bivariate_map_pm2p5, AMAC_pm2p5, Concentration_2023_pm2p5, Average_2023_pm2p5,  December_2023_pm2p5]
+});
+
+let pm10 = new ol.layer.Group({
+  title: 'PM10',
+  layers: [LCC_pm10, Bivariate_map_pm10, AMAC_pm10, Concentration_2023_pm10, Average_2023_pm10,  December_2023_pm10]
 });
 
 // 4. MAPPA
@@ -140,7 +219,7 @@ const initialCoordinates = [4.4699, 50.5039];
 
 var map = new ol.Map({
   target: document.getElementById('map'),
-  layers: [basemapLayers, no2, pm2p5],  // ← gruppi, non osm direttamente
+  layers: [basemapLayers, no2, pm2p5, pm10],  // ← gruppi, non osm direttamente
   view: new ol.View({
     center: ol.proj.fromLonLat(initialCoordinates),
     zoom: initialZoom
@@ -162,6 +241,28 @@ map.addControl(new ol.control.LayerSwitcher({ tipLabel: 'Layers' }));
 const legendData = {
   'AMAC no2': {
     title: 'NO₂ Change 2021-2023',
+    items: [
+      { color: '#2534a8', label: '≤ -5 µg/m³' },
+      { color: '#6e62d4', label: '-5 — -2 µg/m³' },
+      { color: '#a0d385', label: '-2 — 0 µg/m³' },
+      { color: '#cbd07a', label: '0 — 2 µg/m³' },
+      { color: '#d68574', label: '2 — 5 µg/m³' },
+      { color: '#b22625', label: '> 5 µg/m³' }
+    ]
+  },
+  'AMAC pm10': {
+  title: 'PM10 Change 2021-2023',
+  items: [
+    { color: '#0b0dff', label: '≤ -10 µg/m³' },
+    { color: '#6e62d4', label: '-10 — -4 µg/m³' },
+    { color: '#96fc8c', label: '-4 — 0 µg/m³' },
+    { color: '#fafca2', label: '0 — 4 µg/m³' },
+    { color: '#fbb093', label: '4 — 10 µg/m³' },
+    { color: '#c81136', label: '> 10 µg/m³' },
+  ]
+},
+  'AMAC pm2.5': {
+    title: 'PM2.5 Change 2021-2023',
     items: [
       { color: '#2534a8', label: '≤ -5 µg/m³' },
       { color: '#6e62d4', label: '-5 — -2 µg/m³' },
@@ -274,7 +375,96 @@ const legendData = {
     { color: '#32788f', label: '54' },
     { color: '#2a6682', label: '55' },
   ]
+},
+ 'Bivariate Map pm10': {
+   title: 'pm10 & Population (Bivariate)',
+   items: [
+    { color: '#fffffe', label: '11' },
+    { color: '#ffe8ee', label: '12' },
+    { color: '#ffcbd7', label: '13' },
+    { color: '#ffaec6', label: '14' },
+    { color: '#ff88a6', label: '15' },
+    { color: '#ddfffe', label: '21' },
+    { color: '#cddfdb', label: '22' },
+    { color: '#bbb8cb', label: '23' },
+    { color: '#a9a8b4', label: '24' },
+    { color: '#b08ea6', label: '25' },
+    { color: '#b9fffc', label: '31' },
+    { color: '#a4dfdd', label: '32' },
+    { color: '#95b6c3', label: '33' },
+    { color: '#8a9cad', label: '34' },
+    { color: '#7d8ba1', label: '35' },
+    { color: '#7cfdfd', label: '41' },
+    { color: '#64dbdc', label: '42' },
+    { color: '#54b5bd', label: '43' },
+    { color: '#4591a0', label: '44' },
+    { color: '#397e8d', label: '45' },
+    { color: '#50fffd', label: '51' },
+    { color: '#44d6d4', label: '52' },
+    { color: '#3c9fad', label: '53' },
+    { color: '#32788f', label: '54' },
+    { color: '#2a6682', label: '55' },
+  ]
+},
+
+'LCC trees': {
+  title: 'Land Cover Change - Trees 2021-2023',
+  items: [
+    { color: '#1a5c1a', label: 'Trees → Trees' },
+    { color: '#ed022a', label: 'Trees → Other' },
+    { color: '#1a5bab', label: 'Other → Trees' },
+  ]
+},
+
+'LCC crops': {
+  title: 'Land Cover Change - Crops 2021-2023',
+  items: [
+    { color: '#c8a951', label: 'Crops → Crops' },
+    { color: '#ed022a', label: 'Crops → Other' },
+    { color: '#358221', label: 'Other → Crops' },
+  ]
+},
+
+'LCC built area': {
+  title: 'Land Cover Change - Built Area 2021-2023',
+  items: [
+    { color: '#1a8a3a', label: 'Built Area → Built Area' },
+    { color: '#4d4d4d', label: 'Built Area → Other' },
+    { color: '#ed022a', label: 'Other → Built Area' },
+  ]
+},
+
+'Bivariate Map pm2.5': {
+   title: 'pm2.5 & Population (Bivariate)',
+   items: [
+    { color: '#fffffe', label: '11' },
+    { color: '#ffe8ee', label: '12' },
+    { color: '#ffcbd7', label: '13' },
+    { color: '#ffaec6', label: '14' },
+    { color: '#ff88a6', label: '15' },
+    { color: '#ddfffe', label: '21' },
+    { color: '#cddfdb', label: '22' },
+    { color: '#bbb8cb', label: '23' },
+    { color: '#a9a8b4', label: '24' },
+    { color: '#b08ea6', label: '25' },
+    { color: '#b9fffc', label: '31' },
+    { color: '#a4dfdd', label: '32' },
+    { color: '#95b6c3', label: '33' },
+    { color: '#8a9cad', label: '34' },
+    { color: '#7d8ba1', label: '35' },
+    { color: '#7cfdfd', label: '41' },
+    { color: '#64dbdc', label: '42' },
+    { color: '#54b5bd', label: '43' },
+    { color: '#4591a0', label: '44' },
+    { color: '#397e8d', label: '45' },
+    { color: '#50fffd', label: '51' },
+    { color: '#44d6d4', label: '52' },
+    { color: '#3c9fad', label: '53' },
+    { color: '#32788f', label: '54' },
+    { color: '#2a6682', label: '55' },
+  ]
 }
+
   // aggiungi altri layer qui con lo stesso schema
 };
 function getLayerGroup(layer) {
@@ -317,29 +507,14 @@ function updateLegend(layerTitle) {
   `).join('');
 }
 
-// per ogni overlay layer aggiungi questo listener
-[AMAC_no2, Concentration_2023_no2, Bivariate_map_no2].forEach(layer => {
-  layer.on('change:visible', function() {
-    if (layer.getVisible()) {
-      updateLegend(layer.get('title'));
-    }
-  });
-});
 
-[AMAC_pm2p5, Concentration_2023_pm2p5, Bivariate_map_pm2p5].forEach(layer => {
-  layer.on('change:visible', function() {
-    if (layer.getVisible()) {
-      updateLegend(layer.get('title'));
-    }
-  });
-});
 
 // legenda iniziale al caricamento
 updateLegend();
 
 function getTopmostVisibleLayer() {
   let result = null;
-  [pm2p5, no2].forEach(group => {  
+  [pm10, pm2p5, no2].forEach(group => {  
     if (result) return;
     const layers = group.getLayers().getArray().slice().reverse();
     const found = layers.find(l => l.getVisible());
@@ -358,7 +533,7 @@ function refreshLegend() {
 }
 
 // ascolta tutti i layer
-[Bivariate_map_no2, AMAC_no2, Concentration_2023_no2, Average_2023_no2, December_2023_no2, Bivariate_map_pm2p5, AMAC_pm2p5, Concentration_2023_pm2p5, Average_2023_pm2p5, December_2023_pm2p5].forEach(layer => {
+[LCC_no2, Bivariate_map_no2, AMAC_no2, Concentration_2023_no2, Average_2023_no2, December_2023_no2, LCC_pm2p5, Bivariate_map_pm2p5, AMAC_pm2p5, Concentration_2023_pm2p5, Average_2023_pm2p5, December_2023_pm2p5, LCC_pm10,  Bivariate_map_pm10, AMAC_pm10, Concentration_2023_pm10, Average_2023_pm10, December_2023_pm10].forEach(layer => {
   layer.on('change:visible', function() {
     refreshLegend();
   });
@@ -401,7 +576,7 @@ map.on('singleclick', function(evt) {
             4: '40 — 50 µg/m³',
             5: '> 50 µg/m³'
           };
-          if (topLayer.get('title') === 'Concentration 2023') {
+          if (['Concentration 2023 no2', 'Concentration 2023 pm2.5', 'Concentration 2023 pm10'].includes(topLayer.get('title'))) {
             value = classiConcentration[classe] || 'No data';
           } else {
             value = parseFloat(match[1]).toFixed(2) + ' µg/m³';

@@ -300,3 +300,20 @@ h1, h2, h3, h4, h5, h6 {
     width: 100%;
   }
 }
+
+.gallery {
+  text-align: center;
+  padding: 0 15px;
+}
+
+.gallery img {
+  margin: 0 auto;
+  display: block;
+  width: 180px;
+  height: 180px;
+}
+
+.icon-description {
+  text-align: center;
+}
+
