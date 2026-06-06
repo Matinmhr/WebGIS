@@ -1,22 +1,16 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="shortcut icon" href="assets/ico/favicon.ico">
+    <title>NO2 WebGIS</title>
 
-    <title>NO2 Analysis</title>
-
-    <link href="assets/css/bootstrap.css" rel="stylesheet">
-
-    <link href="assets/css/style.css" rel="stylesheet">
-    <link href="assets/css/font-awesome.min.css" rel="stylesheet">
-
-    </head>
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="libraries/v8.2.0-package/ol.css">
+    <link rel="stylesheet" href="assets/css/no2.css">
+    <link rel="stylesheet" href="https://unpkg.com/ol-layerswitcher@4.1.1/dist/ol-layerswitcher.css">
+    <script src="libraries/v8.2.0-package/dist/ol.js"></script>
+  </head>
   <body>
 
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -33,7 +27,7 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="index.html">Home</a></li>
-            <li class="dropdown">
+            <li class="dropdown active">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Results <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="pm10.html">PM10</a></li>
@@ -48,56 +42,82 @@
       </div>
     </div>
 
-  <div id="container_pollutant">
+    <h1>NO2 WebGIS</h1>
 
-    <header id="page-header_pollutant">
-      <h1 id="page-title_pollutant" style="color: #8B5CF6;">NO2 | Analysis</h1>
-      <p id="page-subtitle_pollutant">A brief introduction to our NO2 analysis</p>
-    </header>
-
-    <section id="section-1_pollutant" class="section_pollutant" style="border-bottom: 2px solid #8B5CF6;">
-      <img id="img-1_pollutant" src="assets/img/belgium.jpg" alt="Description of image 1">
-      <div id="text-1_pollutant" class="section-text_pollutant">
-        <h2 style="color: #8B5CF6;">
-          <img src="assets/img/Numbers/no2/icon-number-1.svg" alt="NO2 icon" style="width: 48px; height: 48px;">
-          Section 1 Title</h2>
-        <p>Text for section 1.</p>
+    <div id="map-wrapper">
+      <div id="map">
+        <div id="legend" class="legend-container">
+          <span class="legend-title">Legend</span>
+          <div id="legend-content" class="legend-content"></div>
+        </div>
       </div>
-    </section>
+    </div>
 
-    <section id="section-2_pollutant" class="section_pollutant reverse" style="border-bottom: 2px solid #8B5CF6;">
-      <img id="img-2_pollutant" src="assets/img/belgium.jpg" alt="Description of image 2">
-      <div id="text-2_pollutant" class="section-text_pollutant">
-        <h2 style="color: #8B5CF6;">
-           <img src="assets/img/Numbers/no2/icon-number-2.svg" alt="NO2 icon" style="width: 48px; height: 48px;">
-           Section 2 Title</h2>
-        <p>Text for section 2.</p>
+    <div id="data-wrapper">
+      <div class="bottom-row">
+        <div class="table-panel">
+          <div class="panel-header">Statistical table for Land Use Changes</div>
+          <div class="table-scroll">
+            <table id="data-table">
+              <thead>
+                <tr>
+                  <th>Indicator</th>
+                  <th>Pixel Percentage</th>
+                  <th>Category</th>
+                </tr>
+              </thead>
+              <tbody id="table-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="chart-panel">
+          <div class="panel-header">NO2 Layer Counts</div>
+          <div class="chart-body">
+            <canvas id="bar-chart"></canvas>
+          </div>
+        </div>
+
+        <div class="chart-panel">
+          <div class="panel-header">NO2 Product Types</div>
+          <div class="chart-body">
+            <canvas id="pie-chart"></canvas>
+          </div>
+        </div>
       </div>
-    </section>
+    </div>
 
-    <section id="section-3_pollutant" class="section_pollutant" style="border-bottom: 2px solid #8B5CF6;">
-      <img id="img-3_pollutant" src="assets/img/belgium.jpg" alt="Description of image 3">
-      <div id="text-3_pollutant" class="section-text_pollutant" >
-        <h2 style="color: #8B5CF6;">
-          <img src="assets/img/Numbers/no2/icon-number-3.svg" alt="NO2 icon" style="width: 48px; height: 48px;">
-          Section 3 Title</h2>
-        <p>Text for section 3.</p>
+ <!-- ── FOOTER ── -->
+  <div id="footerwrap">
+    <div class="container">
+      <div class="row centered">
+        <div class="col-lg-3">
+          <div class="footer-label">Institution</div>
+          <p class="footer-val">Politecnico di Milano</p>
+        </div>
+        <div class="col-lg-3">
+          <div class="footer-label">Course</div>
+          <p class="footer-val">Geographic Information Systems A.A. 2025/26</p>
+        </div>
+        <div class="col-lg-3">
+          <div class="footer-label">Us</div>
+          <p class="footer-val">Davide Nolli</p>
+          <p class="footer-val">Matin </p>
+          <p class="footer-val">Pietro Giordano</p>
+        </div>
+        <div class="col-lg-3">
+          <div class="footer-label">Contact</div>
+          <p class="footer-val">davide2.nolli@mail.polimi.it</p>
+          <p class="footer-val">Matin </p>
+          <p class="footer-val">pietro.giordano@mail.polimi.it</p>
       </div>
-    </section>
-
-    <section id="section-4_pollutant" class="section_pollutant reverse" style="border-bottom: 2px solid #8B5CF6;">
-      <img id="img-4_pollutant" src="assets/img/belgium.jpg" alt="Description of image 4">
-      <div id="text-4_pollutant" class="section-text_pollutant">
-        <h2 style="color: #8B5CF6;">
-          <img src="assets/img/Numbers/no2/icon-number-4.svg" alt="NO2 icon" style="width: 48px; height: 48px;">
-          Section 4 Title</h2>
-        <p>Text for section 4.</p>
-      </div>
-    </section>
-
+    </div>
   </div>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-  <script src="assets/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/ol-layerswitcher@4.1.1/dist/ol-layerswitcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <script src="assets/js/no2.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </body>
 </html>

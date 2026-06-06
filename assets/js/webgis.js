@@ -428,9 +428,9 @@ const legendData = {
 'LCC built area': {
   title: 'Land Cover Change - Built Area 2021-2023',
   items: [
-    { color: '#1a8a3a', label: 'Built Area → Built Area' },
-    { color: '#4d4d4d', label: 'Built Area → Other' },
-    { color: '#ed022a', label: 'Other → Built Area' },
+    { color: '#4d4d4d', label: 'Built Area → Built Area' },
+    { color: '#1a8a3a', label: 'Other → Built Area' },
+    { color: '#ed022a', label: 'Built Area → Other' },
   ]
 },
 
