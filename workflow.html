@@ -9,307 +9,7 @@
   <link href="assets/css/bootstrap.css" rel="stylesheet">
   <link href="assets/css/style.css" rel="stylesheet">
   <link href="assets/css/font-awesome.min.css" rel="stylesheet">
-
-  <style>
-    /* ── BASE ── */
-    *, *::before, *::after { box-sizing: border-box; }
-    html { scroll-behavior: smooth; font-size: 20px; }
-
-    body {
-      font-size: 1rem;
-      color: #2f2f2f;
-      background: #fff;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* ── NAVBAR grey override ── */
-    .navbar-default {
-      background-color: #000 !important;
-      border-color: #111 !important;
-    }
-    .navbar-default .navbar-brand,
-    .navbar-default .nav > li > a {
-      color: #e8e8e8 !important;
-    }
-    .navbar-default .navbar-brand:hover,
-    .navbar-default .nav > li > a:hover {
-      color: #fff !important;
-      background-color: #222 !important;
-    }
-    .navbar-default .nav > li.active > a,
-    .navbar-default .nav > li.active > a:hover {
-      color: #fff !important;
-      background-color: #111 !important;
-    }
-    .navbar-default .navbar-toggle { border-color: #555; }
-    .navbar-default .navbar-toggle .icon-bar { background-color: #ccc; }
-    .navbar-default .dropdown-menu {
-      background-color: #000;
-      border-color: #111;
-    }
-    .navbar-default .dropdown-menu > li > a {
-      color: #e8e8e8 !important;
-    }
-    .navbar-default .dropdown-menu > li > a:hover {
-      background-color: #222 !important;
-      color: #fff !important;
-    }
-
-    /* ── HERO BANNER ── */
-    #workflow-hero {
-      background: #000;
-      padding: 70px 40px 60px;
-      text-align: center;
-      border-bottom: 3px solid #222;
-      margin-bottom: 0;
-    }
-    #workflow-hero .mono-tag {
-      font-size: 0.75rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: #666;
-      margin-bottom: 16px;
-    }
-    #workflow-hero h1 {
-      font-size: 3.4rem;
-      font-weight: 700;
-      color: #fff;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      margin-bottom: 20px;
-    }
-    #workflow-hero p {
-      color: #bbb;
-      font-size: 1rem;
-      max-width: 800px;
-      margin: 0 auto 30px;
-      line-height: 1.8;
-    }
-    .meta-strip {
-      display: inline-flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0;
-      border: 1px solid #333;
-      border-radius: 4px;
-      overflow: hidden;
-    }
-    .meta-strip .meta-item {
-      padding: 10px 22px;
-      border-right: 1px solid #333;
-      text-align: left;
-    }
-    .meta-strip .meta-item:last-child { border-right: none; }
-    .meta-strip .meta-key {
-      font-size: 0.7rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: #666;
-      display: block;
-      margin-bottom: 3px;
-    }
-    .meta-strip .meta-val {
-      font-size: 0.9rem;
-      color: #ccc;
-      font-weight: 500;
-    }
-
-    /* ── PAGE LAYOUT ── */
-    #page-body {
-      display: flex;
-      align-items: flex-start;
-    }
-
-    /* ── SIDEBAR ── */
-    #toc-sidebar {
-      width: 280px;
-      flex-shrink: 0;
-      position: sticky;
-      top: 52px;
-      height: calc(100vh - 52px);
-      overflow-y: auto;
-      background: #f8f8f8;
-      border-right: 1px solid #e0e0e0;
-      padding: 32px 20px;
-    }
-    .toc-label {
-      font-size: 0.75rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: #999;
-      margin-bottom: 14px;
-    }
-    .toc-list { list-style: none; padding: 0; margin: 0; }
-    .toc-list li { margin-bottom: 2px; }
-    .toc-list a {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 8px 10px;
-      border-radius: 4px;
-      font-size: 0.9rem;
-      color: #666;
-      text-decoration: none;
-      transition: background 0.12s, color 0.12s;
-      line-height: 1.4;
-    }
-    .toc-list a:hover { background: #ebebeb; color: #333; }
-    .toc-list a.active { background: #000; color: #fff; }
-    .toc-num {
-      font-size: 0.72rem;
-      color: #bbb;
-      flex-shrink: 0;
-      margin-top: 2px;
-      min-width: 20px;
-    }
-    .toc-list a.active .toc-num { color: #aaa; }
-
-    /* ── MAIN CONTENT ── */
-    #main-content {
-      flex: 1;
-      padding: 60px 80px 100px 70px;
-      min-width: 0;
-    }
-
-    /* ── STEP ── */
-    .step-section {
-      margin-bottom: 60px;
-      padding-bottom: 60px;
-      border-bottom: 1px solid #e5e5e5;
-      opacity: 0;
-      transform: translateY(14px);
-      transition: opacity 0.45s ease, transform 0.45s ease;
-    }
-    .step-section:last-child { border-bottom: none; }
-    .step-section.visible { opacity: 1; transform: none; }
-
-    .step-header {
-      display: flex;
-      align-items: baseline;
-      gap: 16px;
-      margin-bottom: 20px;
-    }
-    .step-counter {
-      font-size: 0.8rem;
-      letter-spacing: 0.12em;
-      color: #bbb;
-      flex-shrink: 0;
-      padding-top: 6px;
-    }
-    .step-section h2 {
-      font-size: 1.7rem;
-      font-weight: 700;
-      color: #2a2a2a;
-      margin: 0;
-    }
-    .step-context {
-      color: #777;
-      font-size: 1rem;
-      line-height: 1.85;
-      margin-bottom: 20px;
-    }
-
-    /* ── PANEL ── */
-    .info-panel {
-      background: #f7f7f7;
-      border: 1px solid #e5e5e5;
-      border-left: 3px solid #000;
-      border-radius: 0 4px 4px 0;
-      padding: 20px 24px;
-      margin-bottom: 12px;
-    }
-    .panel-label {
-      font-size: 0.78rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: #000;
-      margin-bottom: 12px;
-      font-weight: 700;
-    }
-    .info-panel p {
-      font-size: 1rem;
-      color: #555;
-      line-height: 1.8;
-      margin: 0;
-    }
-    .info-panel p + p { margin-top: 8px; }
-
-    /* ── TABLE ── */
-    .tbl-wrap { overflow-x: auto; margin: 12px 0; }
-    .tbl-wrap table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.95rem;
-    }
-    .tbl-wrap thead tr { border-bottom: 2px solid #000; }
-    .tbl-wrap th {
-      font-size: 0.78rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #888;
-      padding: 9px 14px;
-      font-weight: 600;
-      text-align: left;
-    }
-    .tbl-wrap td {
-      padding: 9px 14px;
-      border-bottom: 1px solid #ececec;
-      color: #555;
-      font-size: 0.95rem;
-    }
-    .tbl-wrap tr:last-child td { border-bottom: none; }
-    .tbl-wrap td:first-child {
-      font-weight: 600;
-      color: #333;
-    }
-    .tbl-wrap tbody tr:hover { background: #fafafa; }
-
-    /* ── CODE / FORMULA ── */
-    code {
-      font-size: 0.88em;
-      background: rgba(0,0,0,0.06);
-      padding: 0.1em 0.35em;
-      border-radius: 2px;
-      color: #222;
-    }
-    .formula-block {
-      background: #111;
-      color: #a8c4e0;
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 0.92rem;
-      padding: 16px 20px;
-      border-radius: 4px;
-      margin: 12px 0;
-      overflow-x: auto;
-      white-space: nowrap;
-    }
-
-    /* ── NOTE ── */
-    .note {
-      border-left: 3px solid #c8b060;
-      background: #fffbef;
-      padding: 12px 18px;
-      margin-top: 12px;
-      font-size: 0.95rem;
-      color: #5a5020;
-      border-radius: 0 3px 3px 0;
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 992px) {
-      #toc-sidebar { display: none; }
-      #main-content { padding: 36px 40px 80px; }
-    }
-    @media (max-width: 768px) {
-      html { font-size: 17px; }
-      #main-content { padding: 28px 22px 60px; }
-      #workflow-hero { padding: 50px 20px 40px; }
-      #workflow-hero h1 { font-size: 2rem; letter-spacing: 1px; }
-      .meta-strip { flex-direction: column; }
-      .meta-strip .meta-item { border-right: none; border-bottom: 1px solid #555; }
-      .meta-strip .meta-item:last-child { border-bottom: none; }
-    }
-  </style>
+  <link href="assets/css/workflow.css" rel="stylesheet">
 </head>
 <body>
 
@@ -332,7 +32,7 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Results <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="pm10.html">PM10</a></li>
-              <li><a href="#works">PM2.5</a></li>
+              <li><a href="pm2p5.html">PM2.5</a></li>
               <li><a href="no2.html">NO2</a></li>
             </ul>
           </li>
@@ -490,32 +190,32 @@
   <div id="footerwrap">
     <div class="container">
       <div class="row centered">
-        <div class="col-lg-4"><p><b>matin.mehrpooya@mail.polimi.it</b></p></div>
-        <div class="col-lg-4"><p><b>pietro.giordano@mail.polimi.it</b></p></div>
-        <div class="col-lg-4"><p>davide2.nolli@mail.polimi.it</p></div>
+        <div class="col-lg-3">
+          <div class="footer-label"><strong>Institution</strong></div>
+          <p class="footer-val">Politecnico di Milano</p>
+          <img src="assets/img/logo-polimi.png" style="width:200px">
+        </div>
+        <div class="col-lg-3">
+          <div class="footer-label"><strong>Course</strong></div>
+          <p class="footer-val">Geographic Information Systems A.A. 2025/26</p>
+        </div>
+        <div class="col-lg-3">
+          <div class="footer-label"><strong>Us</strong></div>
+          <p class="footer-val">Davide Nolli</p>
+          <p class="footer-val">Matin Mehrpooya </p>
+          <p class="footer-val">Pietro Giordano</p>
+        </div>
+        <div class="col-lg-3">
+          <div class="footer-label"><strong>Contact</strong></div>
+          <p class="footer-val">davide2.nolli@mail.polimi.it</p>
+          <p class="footer-val">matin.mehrpooya@mail.polimi.it</p>
+          <p class="footer-val">pietro.giordano@mail.polimi.it</p>
       </div>
     </div>
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <script src="assets/js/bootstrap.min.js"></script>
-
-  <script>
-    const steps = document.querySelectorAll('.step-section');
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
-      });
-    }, { threshold: 0.06 });
-    steps.forEach(s => obs.observe(s));
-
-    const secObs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        const link = document.querySelector('.toc-link[href="#' + e.target.id + '"]');
-        if (link) link.classList.toggle('active', e.isIntersecting);
-      });
-    }, { rootMargin: '-40% 0px -55% 0px' });
-    steps.forEach(s => secObs.observe(s));
-  </script>
+  <script src="assets/js/workflow.js"></script>
 </body>
 </html>

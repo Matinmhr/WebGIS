@@ -264,12 +264,12 @@ const legendData = {
   'AMAC pm2.5': {
     title: 'PM2.5 Change 2021-2023',
     items: [
-      { color: '#2534a8', label: '≤ -5 µg/m³' },
-      { color: '#6e62d4', label: '-5 — -2 µg/m³' },
-      { color: '#a0d385', label: '-2 — 0 µg/m³' },
-      { color: '#cbd07a', label: '0 — 2 µg/m³' },
-      { color: '#d68574', label: '2 — 5 µg/m³' },
-      { color: '#b22625', label: '> 5 µg/m³' }
+      { color: '#2534a8', label: '≤ -3 µg/m³' },
+      { color: '#6e62d4', label: '-3 — -1.5 µg/m³' },
+      { color: '#a0d385', label: '-1.5 — 0 µg/m³' },
+      { color: '#cbd07a', label: '0 — 1.5 µg/m³' },
+      { color: '#d68574', label: '1.5 — 3 µg/m³' },
+      { color: '#b22625', label: '> 3 µg/m³' }
     ]
   },
   'Concentration 2023 no2': {
@@ -280,6 +280,26 @@ const legendData = {
       { color: '#bdbf9b', label: '25 — 40 µg/m³' },
       { color: '#e2624a', label: '40 — 50 µg/m³' },
       { color: '#7a0403', label: '> 50 µg/m³' }
+    ]
+  },
+  'Concentration 2023 pm2.5': {
+    title: 'PM2.5 Concentration 2023',
+    items: [
+      { color: '#8ec9db', label: '<= 5 ug/m3' },
+      { color: '#4c8fa0', label: '5 - 10 ug/m3' },
+      { color: '#bdbf9b', label: '10 - 15 ug/m3' },
+      { color: '#e2624a', label: '15 - 25 ug/m3' },
+      { color: '#7a0403', label: '> 25 ug/m3' }
+    ]
+  },
+  'Concentration 2023 pm10': {
+    title: 'PM10 Concentration 2023',
+    items: [
+      { color: '#8ec9db', label: '<= 5 ug/m3' },
+      { color: '#4c8fa0', label: '5 - 10 ug/m3' },
+      { color: '#bdbf9b', label: '10 - 15 ug/m3' },
+      { color: '#e2624a', label: '15 - 25 ug/m3' },
+      { color: '#7a0403', label: '> 25 ug/m3' }
     ]
   },
    'December 2023 no2': {

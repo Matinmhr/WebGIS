@@ -1,20 +1,14 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="PM10 Analysis in Belgium">
-    <meta name="author" content="GIS LAB / Group 16">
-    <link rel="shortcut icon" href="assets/ico/favicon.ico">
-
-    <title>PM10 Analysis</title>
-
-    <link href="assets/css/bootstrap.css" rel="stylesheet">
-    <link href="assets/css/style.css" rel="stylesheet">
-    <link href="assets/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="libraries/v8.2.0-package/ol.css">
+    <link rel="stylesheet" href="assets/css/pm10.css">
+    <link rel="stylesheet" href="https://unpkg.com/ol-layerswitcher@4.1.1/dist/ol-layerswitcher.css">
+    <script src="libraries/v8.2.0-package/dist/ol.js"></script>
   </head>
-
   <body>
 
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -31,7 +25,7 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="index.html">Home</a></li>
-            <li class="dropdown">
+            <li class="dropdown active">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Results <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="pm10.html">PM10</a></li>
@@ -45,73 +39,82 @@
         </div>
       </div>
     </div>
-
-  <div id="container_pollutant">
-
-    <!-- HEADER: Updated with bulleted primary sources and removed secondary sources -->
-    <header id="page-header_pollutant" style="margin-bottom: 40px;">
-      <h1 id="page-title_pollutant" style="color: #119715;">PM10 | Analysis</h1>
-      
-      <div id="page-subtitle_pollutant" style="text-align: left; max-width: 900px; margin: 0 auto; line-height: 1.6;">
-        <p>The term <strong>PM10</strong> stands for Particulate Matter. The number 10 indicates microscopic particles (either solid or liquid) suspended in the air with an aerodynamic diameter equal to or less than <strong>10 micrometers (µm)</strong>. Due to their small size, they are inhalable and can easily penetrate the upper respiratory tract.</p>
-        
-        <p style="margin-top: 15px;">PM10 particles are emitted directly into the atmosphere through several <strong>Primary Sources</strong>:</p>
-        <ul style="margin-bottom: 15px;">
-          <li><strong>Road Traffic:</strong> Exhaust emissions (especially from diesel engines) and non-exhaust emissions like brake wear, tire wear, and road surface abrasion.</li>
-          <li><strong>Domestic Heating:</strong> The combustion of fuels, particularly biomass (wood, pellets) and coal during colder months.</li>
-          <li><strong>Industrial Activities:</strong> Manufacturing processes, construction sites, power generation, and waste management.</li>
-          <li><strong>Natural Sources:</strong> Windblown dust, sea salt, pollen, and atmospheric volcanic ash.</li>
-        </ul>
-
-
-        
-        <p style="margin-top: 15px;"><strong>The Belgian Context:</strong> Belgium faces significant challenges regarding air quality due to its exceptionally dense road network, major industrial hubs (like the Port of Antwerp), and a high susceptibility to transboundary pollution coming from the neighboring industrial regions of Germany and the Netherlands.</p>
+    <h1>PM10 MAP</h1>
+    <div id="map-wrapper">
+      <div id="map">
+        <div id="legend" class="legend-container">
+          <span class="legend-title">Legend</span>
+          <div id="legend-content" class="legend-content"></div>
+        </div>
       </div>
-    </header>
+    </div>
 
-    <!-- SECTIONS -->
-    <section id="section-1_pollutant" class="section_pollutant" style="border-bottom: 2px solid #119715;">
-      <img id="img-1_pollutant" src="assets/img/CAMS.png" alt="Description of image 1">
-      <div id="text-1_pollutant" class="section-text_pollutant">
-        <h2 style="color: #119715;">
-          <img src="assets/img/Numbers/no2/icon-number-1.svg" alt="NO2 icon" style="width: 48px; height: 48px;">
-          CAMS</h2>
-        <p>Text for section 1.</p>
-      </div>
-    </section>
+    <div id="data-wrapper">
+      <div class="bottom-row">
+        <div class="table-panel">
+          <div class="panel-header">Statistical table for Land Use Changes</div>
+          <div class="table-scroll">
+            <table id="data-table">
+              <thead>
+                <tr>
+                  <th>Indicator</th>
+                  <th>Pixel Percentage</th>
+                  <th>Category</th>
+                </tr>
+              </thead>
+              <tbody id="table-body"></tbody>
+            </table>
+          </div>
+        </div>
 
-    <section id="section-2_pollutant" class="section_pollutant reverse" style="border-bottom: 2px solid #119715;">
-      <img id="img-2_pollutant" src="assets/img/average concentration.png" alt="Description of image 2">
-      <div id="text-2_pollutant" class="section-text_pollutant">
-        <h2 style="color: #119715;">
-           <img src="assets/img/Numbers/no2/icon-number-2.svg" alt="NO2 icon" style="width: 48px; height: 48px;">
-           AVERAGE</h2>
-        <p>Text for section 2.</p>
-      </div>
-    </section>
+        <div class="chart-panel">
+          <div class="panel-header">Statistics per LC change</div>
+          <div class="chart-body">
+            <canvas id="bar-chart"></canvas>
+          </div>
+        </div>
 
-    <section id="section-3_pollutant" class="section_pollutant" style="border-bottom: 2px solid #119715;">
-      <img id="img-3_pollutant" src="assets/img/CONCENTRATION MAP.png" alt="Description of image 3">
-      <div id="text-3_pollutant" class="section-text_pollutant" >
-        <h2 style="color: #119715;">
-          <img src="assets/img/Numbers/no2/icon-number-3.svg" alt="NO2 icon" style="width: 48px; height: 48px;">
-          CONCENTRATION MAP</h2>
-        <p>Text for section 3.</p>
+        <div class="chart-panel">
+          <div class="panel-header">Population exposure</div>
+          <div class="chart-body">
+            <canvas id="pie-chart"></canvas>
+          </div>
+        </div>
       </div>
-    </section>
+    </div>
 
-    <section id="section-4_pollutant" class="section_pollutant reverse" style="border-bottom: 2px solid #119715;">
-      <img id="img-4_pollutant" src="assets/img/AMAC 2021 2023.png" alt="Description of image 4">
-      <div id="text-4_pollutant" class="section-text_pollutant">
-        <h2 style="color: #119715;">
-          <img src="assets/img/Numbers/no2/icon-number-4.svg" alt="NO2 icon" style="width: 48px; height: 48px;">
-          AMAC</h2>
-        <p>Text for section 4.</p>
+ <!-- ── FOOTER ── -->
+  <div id="footerwrap">
+    <div class="container">
+      <div class="row centered">
+        <div class="col-lg-3">
+          <div class="footer-label"><strong>Institution</strong></div>
+          <p class="footer-val">Politecnico di Milano</p>
+          <img src="assets/img/logo-polimi.png" style="width:200px">
+        </div>
+        <div class="col-lg-3">
+          <div class="footer-label"><strong>Course</strong></div>
+          <p class="footer-val">Geographic Information Systems A.A. 2025/26</p>
+        </div>
+        <div class="col-lg-3">
+          <div class="footer-label"><strong>Us</strong></div>
+          <p class="footer-val">Davide Nolli</p>
+          <p class="footer-val">Matin Mehrpooya </p>
+          <p class="footer-val">Pietro Giordano</p>
+        </div>
+        <div class="col-lg-3">
+          <div class="footer-label"><strong>Contact</strong></div>
+          <p class="footer-val">davide2.nolli@mail.polimi.it</p>
+          <p class="footer-val">matin.mehrpooya@mail.polimi.it</p>
+          <p class="footer-val">pietro.giordano@mail.polimi.it</p>
       </div>
-    </section>
+    </div>
   </div>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-  <script src="assets/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/ol-layerswitcher@4.1.1/dist/ol-layerswitcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <script src="assets/js/pm10.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </body>
 </html>

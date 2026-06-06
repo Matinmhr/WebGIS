@@ -62,6 +62,15 @@ const Bivariate_map_pm2p5 = new ol.layer.Image({
   })
 });
 
+let LCC_pm2p5 = new ol.layer.Image({
+  title: 'LCC crops',
+  visible: false,
+  source: new ol.source.ImageWMS({
+    url: 'https://www.gis-geoserver.polimi.it/geoserver/gisgeoserver_16/wms',
+    params: { 'LAYERS': 'gisgeoserver_16:Belgium_LCC_2021_2023_crops', 'FORMAT': 'image/png', 'TRANSPARENT': true }
+  })
+});
+
 const basemapLayers = new ol.layer.Group({
   title: 'Base Maps',
   layers: [osm, sentinel2]
@@ -70,6 +79,7 @@ const basemapLayers = new ol.layer.Group({
 const pm2p5 = new ol.layer.Group({
   title: 'PM2.5',
   layers: [
+    LCC_pm2p5,
     Bivariate_map_pm2p5,
     AMAC_pm2p5,
     Concentration_2023_pm2p5,
@@ -151,12 +161,12 @@ const legendData = {
   'AMAC PM2.5': {
     title: 'PM2.5 Change 2021-2023',
     items: [
-      { color: '#2534a8', label: '<= -5 ug/m3' },
-      { color: '#6e62d4', label: '-5 - -2 ug/m3' },
-      { color: '#a0d385', label: '-2 - 0 ug/m3' },
-      { color: '#cbd07a', label: '0 - 2 ug/m3' },
-      { color: '#d68574', label: '2 - 5 ug/m3' },
-      { color: '#b22625', label: '> 5 ug/m3' }
+      { color: '#2534a8', label: '≤ -3 µg/m³' },
+      { color: '#6e62d4', label: '-3 — -1.5 µg/m³' },
+      { color: '#a0d385', label: '-1.5 — 0 µg/m³' },
+      { color: '#cbd07a', label: '0 — 1.5 µg/m³' },
+      { color: '#d68574', label: '1.5 — 3 µg/m³' },
+      { color: '#b22625', label: '> 3 µg/m³' }
     ]
   },
   'Bivariate Map PM2.5': {
@@ -188,10 +198,20 @@ const legendData = {
       { color: '#32788f', label: '54' },
       { color: '#2a6682', label: '55' }
     ]
-  }
+  },
+'LCC crops': {
+title: 'Land Cover Change - Crops 2021-2023',
+items: [
+  { color: '#c8a951', label: 'Crops → Crops' },
+  { color: '#ed022a', label: 'Crops → Other' },
+  { color: '#358221', label: 'Other → Crops' },
+]
+}
 };
 
+
 const pm2p5Layers = [
+  LCC_pm2p5,
   Bivariate_map_pm2p5,
   AMAC_pm2p5,
   Concentration_2023_pm2p5,
@@ -199,7 +219,6 @@ const pm2p5Layers = [
   December_2023_pm2p5
 ];
 
-// Edit these rows manually to change the table.
 const tableRows = [
   ['Stability / Persistence', '95.14%', 'Crops → Crops'],
   ['Primary Source of Gain', '38.80%', 'Built Area → Crops'],
@@ -210,16 +229,14 @@ const tableRows = [
   ['Third Destination of Loss', '30.17%', 'Crops → Trees']
 ];
 
-// Edit this object manually to change the pie chart.
 const pieChartData = {
-  labels: ['2', '3'],
+  labels: ['Low pollutant concentration', 'Medium pollutant concentration'],
   values: [48.2, 51.8],
   colors: ['#b22625', '#e2624a']
 };
 
-// Edit this object manually to change the bar chart.
 const barChartData = {
-  labels: ['Zone1', 'Zone2', 'Zone3'],
+  labels: ['Stable', 'Gain', 'Loss'],
   datasets: [
     {
       label: 'Mean',

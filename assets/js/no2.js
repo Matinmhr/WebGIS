@@ -240,27 +240,24 @@ const no2Layers = [
   December_2023_no2,
 ];
 
-// Edit these rows manually to change the table.
 const tableRows = [
   ['Stability / Persistence', '95.54%', 'Built Area → Built Area'],
-  ['Primary Source of Gain', '65,95%', 'Crops → Built Area'],
-  ['Secondary Source of Gain', '22,67%', 'Trees → Built Area'],
-  ['Third Source of Gain', '7,64%', 'Rangeland → Built Area'],
-  ['Primary Destination of Loss', '74,46%', 'Built Area → Crops'],
-  ['Secondary Destination of Loss', '13,74%', 'Built Area → Trees'],
-  ['Third Destination of Loss', '8,68%', 'Built Area → Rangeland']
+  ['Primary Source of Gain', '65.95%', 'Crops → Built Area'],
+  ['Secondary Source of Gain', '22.67%', 'Trees → Built Area'],
+  ['Third Source of Gain', '7.64%', 'Rangeland → Built Area'],
+  ['Primary Destination of Loss', '74.46%', 'Built Area → Crops'],
+  ['Secondary Destination of Loss', '13.74%', 'Built Area → Trees'],
+  ['Third Destination of Loss', '8.68%', 'Built Area → Rangeland']
 ];
 
-// Edit this object manually to change the pie chart.
 const pieChartData = {
-  labels: ['1', '2'],
+  labels: ['Very low pollutant concentration', 'Low pollutant concentration '],
   values: [2.46, 97.54],
   colors: ['#b22625', '#e2624a']
 };
 
-// Edit this object manually to change the bar chart.
 const barChartData = {
-  labels: ['Zone1', 'Zone2', 'Zone3'],
+  labels: ['Stable', 'Gain', 'Loss'],
   datasets: [
     {
       label: 'Mean',

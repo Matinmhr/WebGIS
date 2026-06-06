@@ -139,7 +139,9 @@ h1 {
   margin-top: 80px;   /* compensa la navbar fixed-top alta ~50px */
   margin-bottom: 20px;
 }
-
+.footer-label {
+    color: #ffffff; /* Un colore per le etichette */
+}
 #footerwrap {
 	padding-top: 70px;
 	padding-bottom: 50px;
