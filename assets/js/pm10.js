@@ -243,13 +243,13 @@ const pm10Layers = [
 ];
 
 const tableRows = [
-  ['Stability / Persistence', '95.21%', 'Trees → Trees'],
-  ['Primary Source of Gain', '48.79%', 'Rangeland → Trees'],
-  ['Secondary Source of Gain', '42.07%', 'Crops → Trees'],
-  ['Third Source of Gain', '7.19%', 'Built Area → Trees'],
-  ['Primary Destination of Loss', '43.92%', 'Trees → Crops'],
-  ['Secondary Destination of Loss', '27.78%', 'Trees → Built Area'],
-  ['Third Destination of Loss', '26.00%', 'Trees → Rangeland']
+  ['Stability / Persistence', '95.21%','14866.73' ,'Trees → Trees'],
+  ['Primary Source of Gain', '48.79%','212.27' ,'Rangeland → Trees'],
+  ['Secondary Source of Gain', '42.07%', '177.25','Crops → Trees'],
+  ['Third Source of Gain', '7.19%', '146.00','Built Area → Trees'],
+  ['Primary Destination of Loss', '43.92%','268.59' ,'Trees → Crops'],
+  ['Secondary Destination of Loss', '27.78%','250.84' ,'Trees → Built Area'],
+  ['Third Destination of Loss', '26.00%', '229.29','Trees → Rangeland']
 ];
 
 const pieChartData = {
@@ -415,6 +415,7 @@ function buildTable() {
       <td>${row[0]}</td>
       <td><strong>${row[1]}</strong></td>
       <td>${row[2]}</td>
+      <td>${row[3]}</td>
     </tr>
   `).join('');
 }
