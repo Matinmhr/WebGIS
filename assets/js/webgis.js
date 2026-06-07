@@ -215,6 +215,30 @@ let pm10 = new ol.layer.Group({
   layers: [LCC_pm10, Bivariate_map_pm10, AMAC_pm10, Concentration_2023_pm10, Average_2023_pm10,  December_2023_pm10]
 });
 
+const concentrationMappings = {
+  'Concentration 2023 no2': {
+    1: '≤ 10 µg/m³',
+    2: '10 — 25 µg/m³',
+    3: '25 — 40 µg/m³',
+    4: '40 — 50 µg/m³',
+    5: '> 50 µg/m³'
+  },
+  'Concentration 2023 pm2.5': {
+    1: '<= 5 µg/m³',
+    2: '5 - 10 µg/m³',
+    3: '10 - 15 µg/m³',
+    4: '15 - 25 µg/m³',
+    5: '> 25 µg/m³'
+  },
+  'Concentration 2023 pm10': {
+    1: '<= 15 µg/m³',
+    2: '16 - 31 µg/m³',
+    3: '32 - 40 µg/m³',
+    4: '41 - 50 µg/m³',
+    5: '> 50 µg/m³'
+  }
+};
+
 const lccBuiltAreaClasses = {
   107: 'Water → Built Area',
   207: 'Trees → Built Area',
@@ -681,24 +705,18 @@ map.on('singleclick', function(evt) {
 
         if (match) {
           const classe = parseInt(match[1]);
-          const classiConcentration = {
-            1: '≤ 10 µg/m³',
-            2: '10 — 25 µg/m³',
-            3: '25 — 40 µg/m³',
-            4: '40 — 50 µg/m³',
-            5: '> 50 µg/m³'
-          };
+          const layerTitle = topLayer.get('title');
 
-          if (['Concentration 2023 no2', 'Concentration 2023 pm2.5', 'Concentration 2023 pm10'].includes(topLayer.get('title'))) {
-            value = classiConcentration[classe] || 'No data';
-          } else if (topLayer.get('title') === 'LCC built area') {
-             value = lccBuiltAreaClasses[classe] || 'No data';
-          } else if (topLayer.get('title') === 'LCC trees') {
-             value = lccTreesClasses[classe] || 'No data';
-          } else if (topLayer.get('title') === 'LCC crops') {
-             value = lccCropsClasses[classe] || 'No data';
-           }
-            else {
+          // Check if this is a concentration layer
+          if (concentrationMappings[layerTitle]) {
+            value = concentrationMappings[layerTitle][classe] || 'No data';
+          } else if (layerTitle === 'LCC built area') {
+            value = lccBuiltAreaClasses[classe] || 'No data';
+          } else if (layerTitle === 'LCC trees') {
+            value = lccTreesClasses[classe] || 'No data';
+          } else if (layerTitle === 'LCC crops') {
+            value = lccCropsClasses[classe] || 'No data';
+          } else {
             value = parseFloat(match[1]).toFixed(2) + ' µg/m³';
           }
         }
