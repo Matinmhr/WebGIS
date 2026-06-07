@@ -240,13 +240,13 @@ const pm2p5Layers = [
 ];
 
 const tableRows = [
-  ['Stability / Persistence', '95.14%', 'Crops → Crops'],
-  ['Primary Source of Gain', '38.80%', 'Built Area → Crops'],
-  ['Secondary Source of Gain', '32.37%', 'Rangeland → Crops'],
-  ['Third Source of Gain', '26.66%', 'Trees → Crops'],
-  ['Primary Destination of Loss', '35.38%', 'Crops → Built Area'],
-  ['Secondary Destination of Loss', '33.04%', 'Crops → Rangeland'],
-  ['Third Destination of Loss', '30.17%', 'Crops → Trees']
+  ['Stability / Persistence', '95.14%','14867.22', 'Crops → Crops'],
+  ['Primary Source of Gain', '38.80%', '212.32','Built Area → Crops'],
+  ['Secondary Source of Gain', '32.37%','177.14', 'Rangeland → Crops'],
+  ['Third Source of Gain', '26.66%', '145.89','Trees → Crops'],
+  ['Primary Destination of Loss', '35.38%', '268.78','Crops → Built Area'],
+  ['Secondary Destination of Loss', '33.04%','250.96', 'Crops → Rangeland'],
+  ['Third Destination of Loss', '30.17%', '229.16','Crops → Trees']
 ];
 
 const pieChartData = {
@@ -412,6 +412,7 @@ function buildTable() {
       <td>${row[0]}</td>
       <td><strong>${row[1]}</strong></td>
       <td>${row[2]}</td>
+      <td>${row[3]}</td>
     </tr>
   `).join('');
 }
