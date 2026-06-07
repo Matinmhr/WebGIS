@@ -62,6 +62,24 @@ const Bivariate_map_pm10 = new ol.layer.Image({
   })
 });
 
+const lccTreesClasses = {
+  202: 'Trees → Trees',
+  102: 'Water → Trees',
+  402: 'Flooded Vegetation → Trees',
+  502: 'Crops → Trees',
+  702: 'Built Area → Trees',
+  802: 'Bare Ground → Trees',
+  902: 'Snow/Ice → Trees',
+  1102: 'Rangeland → Trees',
+  201: 'Trees → Water',
+  204: 'Trees → Flooded Vegetation',
+  205: 'Trees → Crops',
+  207: 'Trees → Built Area',
+  208: 'Trees → Bare Ground',
+  209: 'Trees → Snow/Ice',
+  211: 'Trees → Rangeland',
+};
+
 let LCC_pm10 = new ol.layer.Image({
   title: 'LCC trees',
   visible: false,
@@ -210,6 +228,7 @@ const legendData = {
     { color: '#1a5c1a', label: 'Trees → Trees' },
     { color: '#ed022a', label: 'Trees → Other' },
     { color: '#1a5bab', label: 'Other → Trees' },
+    { color: '#ffffff', label: 'Other data' },
   ]
 }
 };
@@ -353,6 +372,10 @@ function getFeatureValue(text, layerTitle) {
 
   if (layerTitle === 'Concentration 2023 PM 10') {
     return concentrationClasses[parseInt(grayIndex, 10)] || 'No data';
+  }
+
+  if (layerTitle === 'LCC trees') {
+    return lccTreesClasses[parseInt(grayIndex, 10)] || 'No data';
   }
 
   return parseFloat(grayIndex).toFixed(2) + ' ug/m3';

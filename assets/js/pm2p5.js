@@ -71,6 +71,25 @@ let LCC_pm2p5 = new ol.layer.Image({
   })
 });
 
+const lccCropsClasses = {
+  505: 'Crops → Crops',
+  105: 'Water → Crops',
+  205: 'Trees → Crops',
+  405: 'Flooded Vegetation → Crops',
+  705: 'Built Area → Crops',
+  805: 'Bare Ground → Crops',
+  905: 'Snow/Ice → Crops',
+  1105: 'Rangeland → Crops',
+  501: 'Crops → Water',
+  502: 'Crops → Trees',
+  504: 'Crops → Flooded Vegetation',
+  507: 'Crops → Built Area',
+  508: 'Crops → Bare Ground',
+  509: 'Crops → Snow/Ice',
+  511: 'Crops → Rangeland',
+};
+
+
 const basemapLayers = new ol.layer.Group({
   title: 'Base Maps',
   layers: [osm, sentinel2]
@@ -205,6 +224,7 @@ items: [
   { color: '#c8a951', label: 'Crops → Crops' },
   { color: '#ed022a', label: 'Crops → Other' },
   { color: '#358221', label: 'Other → Crops' },
+  { color: '#ffffff', label: 'Other data' },
 ]
 }
 };
@@ -349,6 +369,10 @@ function getFeatureValue(text, layerTitle) {
 
   if (layerTitle === 'Concentration 2023 PM2.5') {
     return concentrationClasses[parseInt(grayIndex, 10)] || 'No data';
+  }
+
+  if (layerTitle === 'LCC crops') {
+    return lccCropsClasses[parseInt(grayIndex, 10)] || 'No data';
   }
 
   return parseFloat(grayIndex).toFixed(2) + ' ug/m3';

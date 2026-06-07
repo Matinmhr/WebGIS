@@ -119,22 +119,23 @@ const concentrationClasses = {
   5: '> 50 ug/m3'
 };
 
+
 const BuiltareaClasses = {
-  707: 'No change',
-  107: 'Gain',
-  207: 'Gain',
-  407: 'Gain',
-  507: 'Gain',
-  807: 'Gain',
-  907: 'Gain',
-  1107: 'Gain',
-  701: 'Loss',
-  702: 'Loss',
-  704: 'Loss',
-  705: 'Loss',
-  708: 'Loss',
-  709: 'Loss',
-  711: 'Loss'
+  107: 'Water → Built Area',
+  207: 'Trees → Built Area',
+  407: 'Flooded Vegetation → Built Area',
+  507: 'Crops → Built Area',
+  707: 'Built Area → Built Area',
+  807: 'Bare Ground → Built Area',
+  907: 'Snow/Ice → Built Area',
+  1107: 'Rangeland → Built Area',
+  701: 'Built Area → Water',
+  702: 'Built Area → Trees',
+  704: 'Built Area → Flooded Vegetation',
+  705: 'Built Area → Crops',
+  708: 'Built Area → Bare Ground',
+  709: 'Built Area → Snow/Ice',
+  711: 'Built Area → Rangeland',
 };
 
 const legendData = {
@@ -196,6 +197,8 @@ const legendData = {
     { color: '#4d4d4d', label: 'Built Area → Built Area' },
     { color: '#1a8a3a', label: 'Other → Built Area' },
     { color: '#ed022a', label: 'Built Area → Other' },
+    { color: '#ffffff', label: 'Other data' },
+
   ]
 },
 

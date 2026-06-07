@@ -215,7 +215,62 @@ let pm10 = new ol.layer.Group({
   layers: [LCC_pm10, Bivariate_map_pm10, AMAC_pm10, Concentration_2023_pm10, Average_2023_pm10,  December_2023_pm10]
 });
 
-// 4. MAPPA
+const lccBuiltAreaClasses = {
+  107: 'Water → Built Area',
+  207: 'Trees → Built Area',
+  407: 'Flooded Vegetation → Built Area',
+  507: 'Crops → Built Area',
+  707: 'Built Area → Built Area',
+  807: 'Bare Ground → Built Area',
+  907: 'Snow/Ice → Built Area',
+  1107: 'Rangeland → Built Area',
+  701: 'Built Area → Water',
+  702: 'Built Area → Trees',
+  704: 'Built Area → Flooded Vegetation',
+  705: 'Built Area → Crops',
+  708: 'Built Area → Bare Ground',
+  709: 'Built Area → Snow/Ice',
+  711: 'Built Area → Rangeland',
+};
+
+const lccTreesClasses = {
+  202: 'Trees → Trees',
+  102: 'Water → Trees',
+  402: 'Flooded Vegetation → Trees',
+  502: 'Crops → Trees',
+  702: 'Built Area → Trees',
+  802: 'Bare Ground → Trees',
+  902: 'Snow/Ice → Trees',
+  1102: 'Rangeland → Trees',
+  201: 'Trees → Water',
+  204: 'Trees → Flooded Vegetation',
+  205: 'Trees → Crops',
+  207: 'Trees → Built Area',
+  208: 'Trees → Bare Ground',
+  209: 'Trees → Snow/Ice',
+  211: 'Trees → Rangeland',
+};
+
+const lccCropsClasses = {
+  505: 'Crops → Crops',
+  105: 'Water → Crops',
+  205: 'Trees → Crops',
+  405: 'Flooded Vegetation → Crops',
+  705: 'Built Area → Crops',
+  805: 'Bare Ground → Crops',
+  905: 'Snow/Ice → Crops',
+  1105: 'Rangeland → Crops',
+  501: 'Crops → Water',
+  502: 'Crops → Trees',
+  504: 'Crops → Flooded Vegetation',
+  507: 'Crops → Built Area',
+  508: 'Crops → Bare Ground',
+  509: 'Crops → Snow/Ice',
+  511: 'Crops → Rangeland',
+};
+
+
+//for map
 const initialZoom = 7;
 const initialCoordinates = [4.4699, 50.5039];
 
@@ -467,6 +522,7 @@ const legendData = {
     { color: '#1a5c1a', label: 'Trees → Trees' },
     { color: '#ed022a', label: 'Trees → Other' },
     { color: '#1a5bab', label: 'Other → Trees' },
+    { color: '#ffffff', label: 'Other data' },
   ]
 },
 
@@ -476,6 +532,7 @@ const legendData = {
     { color: '#c8a951', label: 'Crops → Crops' },
     { color: '#ed022a', label: 'Crops → Other' },
     { color: '#358221', label: 'Other → Crops' },
+    { color: '#ffffff', label: 'Other data' },
   ]
 },
 
@@ -485,6 +542,7 @@ const legendData = {
     { color: '#4d4d4d', label: 'Built Area → Built Area' },
     { color: '#1a8a3a', label: 'Other → Built Area' },
     { color: '#ed022a', label: 'Built Area → Other' },
+    { color: '#ffffff', label: 'Other data' },
   ]
 },
 
@@ -630,20 +688,28 @@ map.on('singleclick', function(evt) {
             4: '40 — 50 µg/m³',
             5: '> 50 µg/m³'
           };
+
           if (['Concentration 2023 no2', 'Concentration 2023 pm2.5', 'Concentration 2023 pm10'].includes(topLayer.get('title'))) {
             value = classiConcentration[classe] || 'No data';
-          } else {
+          } else if (topLayer.get('title') === 'LCC built area') {
+             value = lccBuiltAreaClasses[classe] || 'No data';
+          } else if (topLayer.get('title') === 'LCC trees') {
+             value = lccTreesClasses[classe] || 'No data';
+          } else if (topLayer.get('title') === 'LCC crops') {
+             value = lccCropsClasses[classe] || 'No data';
+           }
+            else {
             value = parseFloat(match[1]).toFixed(2) + ' µg/m³';
           }
         }
 
-        // per vettoriale bivariate
+        //bivariate 
         if (!value) {
           const biv = text.match(/bivariate\s*=\s*([\d\.\-]+)/);
           value = biv ? 'Class: ' + biv[1] : null;
         }
 
-        // nome area per vettoriali
+        
         const area = text.match(/gaul2_name\s*=\s*(.+)/);
         const areaName = area ? area[1].trim() : '';
 
