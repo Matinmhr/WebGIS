@@ -71,6 +71,7 @@ let LCC_pm10 = new ol.layer.Image({
   })
 });
 
+
 const basemapLayers = new ol.layer.Group({
   title: 'Base Maps',
   layers: [osm, sentinel2]
@@ -79,6 +80,7 @@ const basemapLayers = new ol.layer.Group({
 const pm10 = new ol.layer.Group({
   title: 'PM 10',
   layers: [
+    LCC_pm10,
     Bivariate_map_pm10,
     AMAC_pm10,
     Concentration_2023_pm10,
@@ -109,44 +111,48 @@ map.addControl(new ol.control.LayerSwitcher({ tipLabel: 'Layers' }));
 const legendColor = '#ef4444';
 
 const concentrationClasses = {
-  1: '<= 5 ug/m3',
-  2: '5 - 10 ug/m3',
-  3: '10 - 15 ug/m3',
-  4: '15 - 25 ug/m3',
-  5: '> 25 ug/m3'
+  1: '<= 15 ug/m3',
+  2: '16 - 31 ug/m3',
+  3: '32 - 40 ug/m3',
+  4: '40 - 50 ug/m3',
+  5: '> 50 ug/m3'
 };
 
 const legendData = {
+
   'December 2023 PM 10': {
-    title: 'PM 10 December 2023 (ug/m3)',
-    items: [
-      { color: '#30123b', label: '3.98 ug/m3' },
-      { color: '#4662d8', label: '4.70 ug/m3' },
-      { color: '#35abf8', label: '5.43 ug/m3' },
-      { color: '#1be5b5', label: '6.15 ug/m3' },
-      { color: '#74fe5d', label: '6.88 ug/m3' },
-      { color: '#c9ef34', label: '7.60 ug/m3' },
-      { color: '#fbb938', label: '8.33 ug/m3' },
-      { color: '#f56918', label: '9.05 ug/m3' },
-      { color: '#c92903', label: '9.78 ug/m3' },
-      { color: '#7a0403', label: '10.50 ug/m3' }
-    ]
-  },
+  title: 'PM10 December 2023 (µg/m³)',
+  items: [
+    { color: '#30123b', label: '6.19 µg/m³' },
+    { color: '#4662d8', label: '7.34 µg/m³' },
+    { color: '#35abf8', label: '8.48 µg/m³' },
+    { color: '#1be5b5', label: '9.63 µg/m³' },
+    { color: '#74fe5d', label: '10.77 µg/m³' },
+    { color: '#c9ef34', label: '11.92 µg/m³' },
+    { color: '#fbb938', label: '13.06 µg/m³' },
+    { color: '#f56918', label: '14.21 µg/m³' },
+    { color: '#c92903', label: '15.35 µg/m³' },
+    { color: '#7a0403', label: '16.50 µg/m³' },
+  ]
+},
+
+
   'Average 2023 PM 10': {
-    title: 'PM 10 Average 2023 (ug/m3)',
-    items: [
-      { color: '#30123b', label: '4.79 ug/m3' },
-      { color: '#4662d8', label: '5.47 ug/m3' },
-      { color: '#35abf8', label: '6.16 ug/m3' },
-      { color: '#1be5b5', label: '6.84 ug/m3' },
-      { color: '#74fe5d', label: '7.52 ug/m3' },
-      { color: '#c9ef34', label: '8.21 ug/m3' },
-      { color: '#fbb938', label: '8.89 ug/m3' },
-      { color: '#f56918', label: '9.57 ug/m3' },
-      { color: '#c92903', label: '10.26 ug/m3' },
-      { color: '#7a0403', label: '10.94 ug/m3' }
-    ]
-  },
+  title: 'PM10 Average 2023 (µg/m³)',
+  items: [
+    { color: '#30123b', label: '8.14 µg/m³' },
+    { color: '#4662d8', label: '9.29 µg/m³' },
+    { color: '#35abf8', label: '10.44 µg/m³' },
+    { color: '#1be5b5', label: '11.59 µg/m³' },
+    { color: '#74fe5d', label: '12.74 µg/m³' },
+    { color: '#c9ef34', label: '13.89 µg/m³' },
+    { color: '#fbb938', label: '15.04 µg/m³' },
+    { color: '#f56918', label: '16.18 µg/m³' },
+    { color: '#c92903', label: '17.33 µg/m³' },
+    { color: '#7a0403', label: '18.48 µg/m³' },
+  ]
+},
+
   'Concentration 2023 PM 10': {
     title: 'PM 10 Concentration 2023',
     items: [
@@ -158,16 +164,16 @@ const legendData = {
     ]
   },
   'AMAC PM 10': {
-    title: 'PM 10 Change 2021-2023',
-    items: [
-      { color: '#2534a8', label: '<= -5 ug/m3' },
-      { color: '#6e62d4', label: '-5 - -2 ug/m3' },
-      { color: '#a0d385', label: '-2 - 0 ug/m3' },
-      { color: '#cbd07a', label: '0 - 2 ug/m3' },
-      { color: '#d68574', label: '2 - 5 ug/m3' },
-      { color: '#b22625', label: '> 5 ug/m3' }
-    ]
-  },
+  title: 'PM10 Change 2021-2023',
+  items: [
+    { color: '#0b0dff', label: '≤ -10 µg/m³' },
+    { color: '#27eefe', label: '-10 — -4 µg/m³' },
+    { color: '#96fc8c', label: '-4 — 0 µg/m³' },
+    { color: '#fafca2', label: '0 — 4 µg/m³' },
+    { color: '#fbb093', label: '4 — 10 µg/m³' },
+    { color: '#c81136', label: '> 10 µg/m³' },
+  ]
+},
   'Bivariate Map PM 10': {
     title: 'PM 10 and Population',
     items: [

@@ -67,7 +67,7 @@
 body {
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 18px;
 
     -webkit-font-smoothing: antialiased;
     -webkit-overflow-scrolling: touch;
@@ -324,3 +324,39 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
 }
 
+.intro-section {
+  margin-top: -30px;
+  margin-bottom: 50px;
+}
+
+.intro-section h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 3ch;
+  font-weight: 700;
+  color: #4a4a4a;
+  margin-bottom: 25px;
+  position: relative;
+  display: inline-block;
+}
+
+
+
+.intro-section .lead {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  text-align: justify;
+  line-height: 1.9;
+  color: #4a4a4a;
+  margin-bottom: 15px;
+}
+
+.intro-section p {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  text-align: justify;
+  line-height: 1.9;
+  color: #4a4a4a;
+   margin-bottom: 50px;
+}

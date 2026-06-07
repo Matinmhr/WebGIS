@@ -144,6 +144,8 @@ let December_2023_pm10 = new ol.layer.Image({
     params: { 'LAYERS': 'gisgeoserver_16:Belgium_CAMS_pm10_2023_12', 'FORMAT': 'image/png', 'TRANSPARENT': true }
   })
 });
+console.log('Source:', December_2023_pm10.getSource());
+console.log('Params:', December_2023_pm10.getSource().getParams());
 
 let AMAC_pm10 = new ol.layer.Image({
   title: 'AMAC pm10',
@@ -295,11 +297,11 @@ const legendData = {
   'Concentration 2023 pm10': {
     title: 'PM10 Concentration 2023',
     items: [
-      { color: '#8ec9db', label: '<= 5 ug/m3' },
-      { color: '#4c8fa0', label: '5 - 10 ug/m3' },
-      { color: '#bdbf9b', label: '10 - 15 ug/m3' },
-      { color: '#e2624a', label: '15 - 25 ug/m3' },
-      { color: '#7a0403', label: '> 25 ug/m3' }
+      { color: '#8ec9db', label: '<= 15 ug/m3' },
+      { color: '#4c8fa0', label: '16 - 31 ug/m3' },
+      { color: '#bdbf9b', label: '32 - 40 ug/m3' },
+      { color: '#e2624a', label: '41 - 50 ug/m3' },
+      { color: '#7a0403', label: '> 50 ug/m3' }
     ]
   },
    'December 2023 no2': {
@@ -363,6 +365,38 @@ const legendData = {
     { color: '#f56918', label: '9.57 µg/m³' },
     { color: '#c92903', label: '10.26 µg/m³' },
     { color: '#7a0403', label: '10.94 µg/m³' },
+  ]
+},
+
+'Average 2023 pm10': {
+  title: 'PM10 Average 2023 (µg/m³)',
+  items: [
+    { color: '#30123b', label: '8.14 µg/m³' },
+    { color: '#4662d8', label: '9.29 µg/m³' },
+    { color: '#35abf8', label: '10.44 µg/m³' },
+    { color: '#1be5b5', label: '11.59 µg/m³' },
+    { color: '#74fe5d', label: '12.74 µg/m³' },
+    { color: '#c9ef34', label: '13.89 µg/m³' },
+    { color: '#fbb938', label: '15.04 µg/m³' },
+    { color: '#f56918', label: '16.18 µg/m³' },
+    { color: '#c92903', label: '17.33 µg/m³' },
+    { color: '#7a0403', label: '18.48 µg/m³' },
+  ]
+},
+
+'December 2023 pm10': {
+  title: 'PM10 December 2023 (µg/m³)',
+  items: [
+    { color: '#30123b', label: '6.19 µg/m³' },
+    { color: '#4662d8', label: '7.34 µg/m³' },
+    { color: '#35abf8', label: '8.48 µg/m³' },
+    { color: '#1be5b5', label: '9.63 µg/m³' },
+    { color: '#74fe5d', label: '10.77 µg/m³' },
+    { color: '#c9ef34', label: '11.92 µg/m³' },
+    { color: '#fbb938', label: '13.06 µg/m³' },
+    { color: '#f56918', label: '14.21 µg/m³' },
+    { color: '#c92903', label: '15.35 µg/m³' },
+    { color: '#7a0403', label: '16.50 µg/m³' },
   ]
 },
 
@@ -553,7 +587,7 @@ function refreshLegend() {
 }
 
 // ascolta tutti i layer
-[LCC_no2, Bivariate_map_no2, AMAC_no2, Concentration_2023_no2, Average_2023_no2, December_2023_no2, LCC_pm2p5, Bivariate_map_pm2p5, AMAC_pm2p5, Concentration_2023_pm2p5, Average_2023_pm2p5, December_2023_pm2p5, LCC_pm10,  Bivariate_map_pm10, AMAC_pm10, Concentration_2023_pm10, Average_2023_pm10, December_2023_pm10].forEach(layer => {
+[LCC_no2, Bivariate_map_no2, AMAC_no2, Concentration_2023_no2, Average_2023_no2, December_2023_no2, LCC_pm2p5, Bivariate_map_pm2p5, AMAC_pm2p5, Concentration_2023_pm2p5, Average_2023_pm2p5, December_2023_pm2p5, LCC_pm10,  Bivariate_map_pm10, AMAC_pm10, Concentration_2023_pm10, Average_2023_pm10,  December_2023_pm10].forEach(layer => {
   layer.on('change:visible', function() {
     refreshLegend();
   });
@@ -639,3 +673,7 @@ function showPopup(pixel, layerTitle, value, areaName) {
   popup.style.left = pixel[0] + 'px';
   popup.style.top = pixel[1] + 'px';
 }
+December_2023_pm10.getSource().on('imageloaderror', function(event) {
+  console.log('Image load error:', event);
+  console.log('URL:', event.image.src_);
+});
