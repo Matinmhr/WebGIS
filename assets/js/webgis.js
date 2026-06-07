@@ -8,12 +8,12 @@ const osm = new ol.layer.Tile({
 
 const groupColors = {
   'Base Maps': '#3498db',
-  'NO2': '#8B5CF6',      // ← deve corrispondere al title del gruppo
-  'PM2.5': '#EF4444',    // ← idem
-  'PM10': '#F97316'      // ← idem
+  'NO2': '#8B5CF6',
+  'PM2.5': '#EF4444',
+  'PM10': '#F97316'
 };
 
-const sentinel2 = new ol.layer.Tile({ //default one
+const sentinel2 = new ol.layer.Tile({
   title: 'Sentinel-2 Cloudless 2020',
   type: 'base',
   visible: true,
@@ -42,7 +42,7 @@ let AMAC_no2 = new ol.layer.Image({
   })
 });
 
-let Average_2023_no2= new ol.layer.Image({
+let Average_2023_no2 = new ol.layer.Image({
   title: 'Average 2023 no2',
   visible: false,
   source: new ol.source.ImageWMS({
@@ -98,7 +98,7 @@ let AMAC_pm2p5 = new ol.layer.Image({
   })
 });
 
-let Average_2023_pm2p5= new ol.layer.Image({
+let Average_2023_pm2p5 = new ol.layer.Image({
   title: 'Average 2023 pm2.5',
   visible: false,
   source: new ol.source.ImageWMS({
@@ -135,7 +135,7 @@ let LCC_pm2p5 = new ol.layer.Image({
 });
 
 
-//pm10 layers
+// pm10 layers
 let December_2023_pm10 = new ol.layer.Image({
   title: 'December 2023 pm10',
   visible: false,
@@ -144,8 +144,6 @@ let December_2023_pm10 = new ol.layer.Image({
     params: { 'LAYERS': 'gisgeoserver_16:Belgium_CAMS_pm10_2023_12', 'FORMAT': 'image/png', 'TRANSPARENT': true }
   })
 });
-console.log('Source:', December_2023_pm10.getSource());
-console.log('Params:', December_2023_pm10.getSource().getParams());
 
 let AMAC_pm10 = new ol.layer.Image({
   title: 'AMAC pm10',
@@ -156,7 +154,7 @@ let AMAC_pm10 = new ol.layer.Image({
   })
 });
 
-let Average_2023_pm10= new ol.layer.Image({
+let Average_2023_pm10 = new ol.layer.Image({
   title: 'Average 2023 pm10',
   visible: false,
   source: new ol.source.ImageWMS({
@@ -192,7 +190,6 @@ let LCC_pm10 = new ol.layer.Image({
   })
 });
 
-// aggiungi colombiaRivers e colombiaRoads allo stesso modo...
 
 // 3. GRUPPI
 let basemapLayers = new ol.layer.Group({
@@ -202,17 +199,17 @@ let basemapLayers = new ol.layer.Group({
 
 let no2 = new ol.layer.Group({
   title: 'NO2',
-  layers: [LCC_no2, Bivariate_map_no2, AMAC_no2, Concentration_2023_no2, Average_2023_no2,  December_2023_no2]
+  layers: [LCC_no2, Bivariate_map_no2, AMAC_no2, Concentration_2023_no2, Average_2023_no2, December_2023_no2]
 });
 
 let pm2p5 = new ol.layer.Group({
   title: 'PM2.5',
-  layers: [LCC_pm2p5, Bivariate_map_pm2p5, AMAC_pm2p5, Concentration_2023_pm2p5, Average_2023_pm2p5,  December_2023_pm2p5]
+  layers: [LCC_pm2p5, Bivariate_map_pm2p5, AMAC_pm2p5, Concentration_2023_pm2p5, Average_2023_pm2p5, December_2023_pm2p5]
 });
 
 let pm10 = new ol.layer.Group({
   title: 'PM10',
-  layers: [LCC_pm10, Bivariate_map_pm10, AMAC_pm10, Concentration_2023_pm10, Average_2023_pm10,  December_2023_pm10]
+  layers: [LCC_pm10, Bivariate_map_pm10, AMAC_pm10, Concentration_2023_pm10, Average_2023_pm10, December_2023_pm10]
 });
 
 // 4. MAPPA
@@ -221,7 +218,7 @@ const initialCoordinates = [4.4699, 50.5039];
 
 var map = new ol.Map({
   target: document.getElementById('map'),
-  layers: [basemapLayers, no2, pm2p5, pm10],  // ← gruppi, non osm direttamente
+  layers: [basemapLayers, no2, pm2p5, pm10],
   view: new ol.View({
     center: ol.proj.fromLonLat(initialCoordinates),
     zoom: initialZoom
@@ -253,16 +250,16 @@ const legendData = {
     ]
   },
   'AMAC pm10': {
-  title: 'PM10 Change 2021-2023',
-  items: [
-    { color: '#0b0dff', label: '≤ -10 µg/m³' },
-    { color: '#6e62d4', label: '-10 — -4 µg/m³' },
-    { color: '#96fc8c', label: '-4 — 0 µg/m³' },
-    { color: '#fafca2', label: '0 — 4 µg/m³' },
-    { color: '#fbb093', label: '4 — 10 µg/m³' },
-    { color: '#c81136', label: '> 10 µg/m³' },
-  ]
-},
+    title: 'PM10 Change 2021-2023',
+    items: [
+      { color: '#0b0dff', label: '≤ -10 µg/m³' },
+      { color: '#6e62d4', label: '-10 — -4 µg/m³' },
+      { color: '#96fc8c', label: '-4 — 0 µg/m³' },
+      { color: '#fafca2', label: '0 — 4 µg/m³' },
+      { color: '#fbb093', label: '4 — 10 µg/m³' },
+      { color: '#c81136', label: '> 10 µg/m³' },
+    ]
+  },
   'AMAC pm2.5': {
     title: 'PM2.5 Change 2021-2023',
     items: [
@@ -297,230 +294,189 @@ const legendData = {
   'Concentration 2023 pm10': {
     title: 'PM10 Concentration 2023',
     items: [
-      { color: '#8ec9db', label: '<= 15 ug/m3' },
-      { color: '#4c8fa0', label: '16 - 31 ug/m3' },
-      { color: '#bdbf9b', label: '32 - 40 ug/m3' },
-      { color: '#e2624a', label: '41 - 50 ug/m3' },
-      { color: '#7a0403', label: '> 50 ug/m3' }
+      { color: '#8ec9db', label: '<= 5 ug/m3' },
+      { color: '#4c8fa0', label: '5 - 10 ug/m3' },
+      { color: '#bdbf9b', label: '10 - 15 ug/m3' },
+      { color: '#e2624a', label: '15 - 25 ug/m3' },
+      { color: '#7a0403', label: '> 25 ug/m3' }
     ]
   },
-   'December 2023 no2': {
+  'December 2023 no2': {
     title: 'NO₂ December 2023 (µg/m³)',
     items: [
-    { color: '#30123b', label: '5.0 µg/m³' },
-    { color: '#4662d8', label: '6.8 µg/m³' },
-    { color: '#35abf8', label: '8.6 µg/m³' },
-    { color: '#1be5b5', label: '10.4 µg/m³' },
-    { color: '#74fe5d', label: '12.2 µg/m³' },
-    { color: '#c9ef34', label: '14.1 µg/m³' },
-    { color: '#fbb938', label: '15.9 µg/m³' },
-    { color: '#f56918', label: '17.7 µg/m³' },
-    { color: '#c92903', label: '19.5 µg/m³' },
-    { color: '#7a0403', label: '21.3 µg/m³' },
+      { color: '#30123b', label: '5.0 µg/m³' },
+      { color: '#4662d8', label: '6.8 µg/m³' },
+      { color: '#35abf8', label: '8.6 µg/m³' },
+      { color: '#1be5b5', label: '10.4 µg/m³' },
+      { color: '#74fe5d', label: '12.2 µg/m³' },
+      { color: '#c9ef34', label: '14.1 µg/m³' },
+      { color: '#fbb938', label: '15.9 µg/m³' },
+      { color: '#f56918', label: '17.7 µg/m³' },
+      { color: '#c92903', label: '19.5 µg/m³' },
+      { color: '#7a0403', label: '21.3 µg/m³' },
     ]
-   },
-
-   'December 2023 pm2.5': {
-  title: 'PM2.5 December 2023 (µg/m³)',
-  items: [
-    { color: '#30123b', label: '3.98 µg/m³' },
-    { color: '#4662d8', label: '4.70 µg/m³' },
-    { color: '#35abf8', label: '5.43 µg/m³' },
-    { color: '#1be5b5', label: '6.15 µg/m³' },
-    { color: '#74fe5d', label: '6.88 µg/m³' },
-    { color: '#c9ef34', label: '7.60 µg/m³' },
-    { color: '#fbb938', label: '8.33 µg/m³' },
-    { color: '#f56918', label: '9.05 µg/m³' },
-    { color: '#c92903', label: '9.78 µg/m³' },
-    { color: '#7a0403', label: '10.50 µg/m³' },
-  ]
-},
-
-   'Average 2023 no2': {
+  },
+  'December 2023 pm2.5': {
+    title: 'PM2.5 December 2023 (µg/m³)',
+    items: [
+      { color: '#30123b', label: '3.98 µg/m³' },
+      { color: '#4662d8', label: '4.70 µg/m³' },
+      { color: '#35abf8', label: '5.43 µg/m³' },
+      { color: '#1be5b5', label: '6.15 µg/m³' },
+      { color: '#74fe5d', label: '6.88 µg/m³' },
+      { color: '#c9ef34', label: '7.60 µg/m³' },
+      { color: '#fbb938', label: '8.33 µg/m³' },
+      { color: '#f56918', label: '9.05 µg/m³' },
+      { color: '#c92903', label: '9.78 µg/m³' },
+      { color: '#7a0403', label: '10.50 µg/m³' },
+    ]
+  },
+  'Average 2023 no2': {
     title: 'NO₂ Average 2023 (µg/m³)',
     items: [
-    { color: '#30123b', label: '4.5 µg/m³' },
-    { color: '#4662d8', label: '6.4 µg/m³' },
-    { color: '#35abf8', label: '8.3 µg/m³' },
-    { color: '#1be5b5', label: '10.3 µg/m³' },
-    { color: '#74fe5d', label: '12.2 µg/m³' },
-    { color: '#c9ef34', label: '14.1 µg/m³' },
-    { color: '#fbb938', label: '16.1 µg/m³' },
-    { color: '#f56918', label: '18.0 µg/m³' },
-    { color: '#c92903', label: '19.9 µg/m³' },
-    { color: '#7a0403', label: '21.9 µg/m³' },
-   ]
-   },
-
-   'Average 2023 pm2.5': {
-  title: 'PM2.5 Average 2023 (µg/m³)',
-  items: [
-    { color: '#30123b', label: '4.79 µg/m³' },
-    { color: '#4662d8', label: '5.47 µg/m³' },
-    { color: '#35abf8', label: '6.16 µg/m³' },
-    { color: '#1be5b5', label: '6.84 µg/m³' },
-    { color: '#74fe5d', label: '7.52 µg/m³' },
-    { color: '#c9ef34', label: '8.21 µg/m³' },
-    { color: '#fbb938', label: '8.89 µg/m³' },
-    { color: '#f56918', label: '9.57 µg/m³' },
-    { color: '#c92903', label: '10.26 µg/m³' },
-    { color: '#7a0403', label: '10.94 µg/m³' },
-  ]
-},
-
-'Average 2023 pm10': {
-  title: 'PM10 Average 2023 (µg/m³)',
-  items: [
-    { color: '#30123b', label: '8.14 µg/m³' },
-    { color: '#4662d8', label: '9.29 µg/m³' },
-    { color: '#35abf8', label: '10.44 µg/m³' },
-    { color: '#1be5b5', label: '11.59 µg/m³' },
-    { color: '#74fe5d', label: '12.74 µg/m³' },
-    { color: '#c9ef34', label: '13.89 µg/m³' },
-    { color: '#fbb938', label: '15.04 µg/m³' },
-    { color: '#f56918', label: '16.18 µg/m³' },
-    { color: '#c92903', label: '17.33 µg/m³' },
-    { color: '#7a0403', label: '18.48 µg/m³' },
-  ]
-},
-
-'December 2023 pm10': {
-  title: 'PM10 December 2023 (µg/m³)',
-  items: [
-    { color: '#30123b', label: '6.19 µg/m³' },
-    { color: '#4662d8', label: '7.34 µg/m³' },
-    { color: '#35abf8', label: '8.48 µg/m³' },
-    { color: '#1be5b5', label: '9.63 µg/m³' },
-    { color: '#74fe5d', label: '10.77 µg/m³' },
-    { color: '#c9ef34', label: '11.92 µg/m³' },
-    { color: '#fbb938', label: '13.06 µg/m³' },
-    { color: '#f56918', label: '14.21 µg/m³' },
-    { color: '#c92903', label: '15.35 µg/m³' },
-    { color: '#7a0403', label: '16.50 µg/m³' },
-  ]
-},
-
+      { color: '#30123b', label: '4.5 µg/m³' },
+      { color: '#4662d8', label: '6.4 µg/m³' },
+      { color: '#35abf8', label: '8.3 µg/m³' },
+      { color: '#1be5b5', label: '10.3 µg/m³' },
+      { color: '#74fe5d', label: '12.2 µg/m³' },
+      { color: '#c9ef34', label: '14.1 µg/m³' },
+      { color: '#fbb938', label: '16.1 µg/m³' },
+      { color: '#f56918', label: '18.0 µg/m³' },
+      { color: '#c92903', label: '19.9 µg/m³' },
+      { color: '#7a0403', label: '21.9 µg/m³' },
+    ]
+  },
+  'Average 2023 pm2.5': {
+    title: 'PM2.5 Average 2023 (µg/m³)',
+    items: [
+      { color: '#30123b', label: '4.79 µg/m³' },
+      { color: '#4662d8', label: '5.47 µg/m³' },
+      { color: '#35abf8', label: '6.16 µg/m³' },
+      { color: '#1be5b5', label: '6.84 µg/m³' },
+      { color: '#74fe5d', label: '7.52 µg/m³' },
+      { color: '#c9ef34', label: '8.21 µg/m³' },
+      { color: '#fbb938', label: '8.89 µg/m³' },
+      { color: '#f56918', label: '9.57 µg/m³' },
+      { color: '#c92903', label: '10.26 µg/m³' },
+      { color: '#7a0403', label: '10.94 µg/m³' },
+    ]
+  },
   'Bivariate Map no2': {
-   title: 'NO₂ & Population (Bivariate)',
-   items: [
-    { color: '#fffffe', label: '11' },
-    { color: '#ffe8ee', label: '12' },
-    { color: '#ffcbd7', label: '13' },
-    { color: '#ffaec6', label: '14' },
-    { color: '#ff88a6', label: '15' },
-    { color: '#ddfffe', label: '21' },
-    { color: '#cddfdb', label: '22' },
-    { color: '#bbb8cb', label: '23' },
-    { color: '#a9a8b4', label: '24' },
-    { color: '#b08ea6', label: '25' },
-    { color: '#b9fffc', label: '31' },
-    { color: '#a4dfdd', label: '32' },
-    { color: '#95b6c3', label: '33' },
-    { color: '#8a9cad', label: '34' },
-    { color: '#7d8ba1', label: '35' },
-    { color: '#7cfdfd', label: '41' },
-    { color: '#64dbdc', label: '42' },
-    { color: '#54b5bd', label: '43' },
-    { color: '#4591a0', label: '44' },
-    { color: '#397e8d', label: '45' },
-    { color: '#50fffd', label: '51' },
-    { color: '#44d6d4', label: '52' },
-    { color: '#3c9fad', label: '53' },
-    { color: '#32788f', label: '54' },
-    { color: '#2a6682', label: '55' },
-  ]
-},
- 'Bivariate Map pm10': {
-   title: 'pm10 & Population (Bivariate)',
-   items: [
-    { color: '#fffffe', label: '11' },
-    { color: '#ffe8ee', label: '12' },
-    { color: '#ffcbd7', label: '13' },
-    { color: '#ffaec6', label: '14' },
-    { color: '#ff88a6', label: '15' },
-    { color: '#ddfffe', label: '21' },
-    { color: '#cddfdb', label: '22' },
-    { color: '#bbb8cb', label: '23' },
-    { color: '#a9a8b4', label: '24' },
-    { color: '#b08ea6', label: '25' },
-    { color: '#b9fffc', label: '31' },
-    { color: '#a4dfdd', label: '32' },
-    { color: '#95b6c3', label: '33' },
-    { color: '#8a9cad', label: '34' },
-    { color: '#7d8ba1', label: '35' },
-    { color: '#7cfdfd', label: '41' },
-    { color: '#64dbdc', label: '42' },
-    { color: '#54b5bd', label: '43' },
-    { color: '#4591a0', label: '44' },
-    { color: '#397e8d', label: '45' },
-    { color: '#50fffd', label: '51' },
-    { color: '#44d6d4', label: '52' },
-    { color: '#3c9fad', label: '53' },
-    { color: '#32788f', label: '54' },
-    { color: '#2a6682', label: '55' },
-  ]
-},
-
-'LCC trees': {
-  title: 'Land Cover Change - Trees 2021-2023',
-  items: [
-    { color: '#1a5c1a', label: 'Trees → Trees' },
-    { color: '#ed022a', label: 'Trees → Other' },
-    { color: '#1a5bab', label: 'Other → Trees' },
-  ]
-},
-
-'LCC crops': {
-  title: 'Land Cover Change - Crops 2021-2023',
-  items: [
-    { color: '#c8a951', label: 'Crops → Crops' },
-    { color: '#ed022a', label: 'Crops → Other' },
-    { color: '#358221', label: 'Other → Crops' },
-  ]
-},
-
-'LCC built area': {
-  title: 'Land Cover Change - Built Area 2021-2023',
-  items: [
-    { color: '#4d4d4d', label: 'Built Area → Built Area' },
-    { color: '#1a8a3a', label: 'Other → Built Area' },
-    { color: '#ed022a', label: 'Built Area → Other' },
-  ]
-},
-
-'Bivariate Map pm2.5': {
-   title: 'pm2.5 & Population (Bivariate)',
-   items: [
-    { color: '#fffffe', label: '11' },
-    { color: '#ffe8ee', label: '12' },
-    { color: '#ffcbd7', label: '13' },
-    { color: '#ffaec6', label: '14' },
-    { color: '#ff88a6', label: '15' },
-    { color: '#ddfffe', label: '21' },
-    { color: '#cddfdb', label: '22' },
-    { color: '#bbb8cb', label: '23' },
-    { color: '#a9a8b4', label: '24' },
-    { color: '#b08ea6', label: '25' },
-    { color: '#b9fffc', label: '31' },
-    { color: '#a4dfdd', label: '32' },
-    { color: '#95b6c3', label: '33' },
-    { color: '#8a9cad', label: '34' },
-    { color: '#7d8ba1', label: '35' },
-    { color: '#7cfdfd', label: '41' },
-    { color: '#64dbdc', label: '42' },
-    { color: '#54b5bd', label: '43' },
-    { color: '#4591a0', label: '44' },
-    { color: '#397e8d', label: '45' },
-    { color: '#50fffd', label: '51' },
-    { color: '#44d6d4', label: '52' },
-    { color: '#3c9fad', label: '53' },
-    { color: '#32788f', label: '54' },
-    { color: '#2a6682', label: '55' },
-  ]
-}
-
-  // aggiungi altri layer qui con lo stesso schema
+    title: 'NO₂ & Population (Bivariate)',
+    items: [
+      { color: '#fffffe', label: '11' },
+      { color: '#ffe8ee', label: '12' },
+      { color: '#ffcbd7', label: '13' },
+      { color: '#ffaec6', label: '14' },
+      { color: '#ff88a6', label: '15' },
+      { color: '#ddfffe', label: '21' },
+      { color: '#cddfdb', label: '22' },
+      { color: '#bbb8cb', label: '23' },
+      { color: '#a9a8b4', label: '24' },
+      { color: '#b08ea6', label: '25' },
+      { color: '#b9fffc', label: '31' },
+      { color: '#a4dfdd', label: '32' },
+      { color: '#95b6c3', label: '33' },
+      { color: '#8a9cad', label: '34' },
+      { color: '#7d8ba1', label: '35' },
+      { color: '#7cfdfd', label: '41' },
+      { color: '#64dbdc', label: '42' },
+      { color: '#54b5bd', label: '43' },
+      { color: '#4591a0', label: '44' },
+      { color: '#397e8d', label: '45' },
+      { color: '#50fffd', label: '51' },
+      { color: '#44d6d4', label: '52' },
+      { color: '#3c9fad', label: '53' },
+      { color: '#32788f', label: '54' },
+      { color: '#2a6682', label: '55' },
+    ]
+  },
+  'Bivariate Map pm10': {
+    title: 'pm10 & Population (Bivariate)',
+    items: [
+      { color: '#fffffe', label: '11' },
+      { color: '#ffe8ee', label: '12' },
+      { color: '#ffcbd7', label: '13' },
+      { color: '#ffaec6', label: '14' },
+      { color: '#ff88a6', label: '15' },
+      { color: '#ddfffe', label: '21' },
+      { color: '#cddfdb', label: '22' },
+      { color: '#bbb8cb', label: '23' },
+      { color: '#a9a8b4', label: '24' },
+      { color: '#b08ea6', label: '25' },
+      { color: '#b9fffc', label: '31' },
+      { color: '#a4dfdd', label: '32' },
+      { color: '#95b6c3', label: '33' },
+      { color: '#8a9cad', label: '34' },
+      { color: '#7d8ba1', label: '35' },
+      { color: '#7cfdfd', label: '41' },
+      { color: '#64dbdc', label: '42' },
+      { color: '#54b5bd', label: '43' },
+      { color: '#4591a0', label: '44' },
+      { color: '#397e8d', label: '45' },
+      { color: '#50fffd', label: '51' },
+      { color: '#44d6d4', label: '52' },
+      { color: '#3c9fad', label: '53' },
+      { color: '#32788f', label: '54' },
+      { color: '#2a6682', label: '55' },
+    ]
+  },
+  'LCC trees': {
+    title: 'Land Cover Change - Trees 2021-2023',
+    items: [
+      { color: '#1a5c1a', label: 'Trees → Trees' },
+      { color: '#ed022a', label: 'Trees → Other' },
+      { color: '#1a5bab', label: 'Other → Trees' },
+    ]
+  },
+  'LCC crops': {
+    title: 'Land Cover Change - Crops 2021-2023',
+    items: [
+      { color: '#c8a951', label: 'Crops → Crops' },
+      { color: '#ed022a', label: 'Crops → Other' },
+      { color: '#358221', label: 'Other → Crops' },
+    ]
+  },
+  'LCC built area': {
+    title: 'Land Cover Change - Built Area 2021-2023',
+    items: [
+      { color: '#4d4d4d', label: 'Built Area → Built Area' },
+      { color: '#1a8a3a', label: 'Other → Built Area' },
+      { color: '#ed022a', label: 'Built Area → Other' },
+    ]
+  },
+  'Bivariate Map pm2.5': {
+    title: 'pm2.5 & Population (Bivariate)',
+    items: [
+      { color: '#fffffe', label: '11' },
+      { color: '#ffe8ee', label: '12' },
+      { color: '#ffcbd7', label: '13' },
+      { color: '#ffaec6', label: '14' },
+      { color: '#ff88a6', label: '15' },
+      { color: '#ddfffe', label: '21' },
+      { color: '#cddfdb', label: '22' },
+      { color: '#bbb8cb', label: '23' },
+      { color: '#a9a8b4', label: '24' },
+      { color: '#b08ea6', label: '25' },
+      { color: '#b9fffc', label: '31' },
+      { color: '#a4dfdd', label: '32' },
+      { color: '#95b6c3', label: '33' },
+      { color: '#8a9cad', label: '34' },
+      { color: '#7d8ba1', label: '35' },
+      { color: '#7cfdfd', label: '41' },
+      { color: '#64dbdc', label: '42' },
+      { color: '#54b5bd', label: '43' },
+      { color: '#4591a0', label: '44' },
+      { color: '#397e8d', label: '45' },
+      { color: '#50fffd', label: '51' },
+      { color: '#44d6d4', label: '52' },
+      { color: '#3c9fad', label: '53' },
+      { color: '#32788f', label: '54' },
+      { color: '#2a6682', label: '55' },
+    ]
+  }
 };
+
 function getLayerGroup(layer) {
   let foundGroup = null;
   map.getLayers().forEach(group => {
@@ -546,7 +502,6 @@ function updateLegend(layerTitle) {
     return;
   }
 
-  // trova il gruppo del layer attivo
   const topLayer = getTopmostVisibleLayer();
   const groupName = topLayer ? getLayerGroup(topLayer) : null;
   const color = groupColors[groupName] || '#cccccc';
@@ -561,14 +516,11 @@ function updateLegend(layerTitle) {
   `).join('');
 }
 
-
-
-// legenda iniziale al caricamento
 updateLegend();
 
 function getTopmostVisibleLayer() {
   let result = null;
-  [pm10, pm2p5, no2].forEach(group => {  
+  [pm10, pm2p5, no2].forEach(group => {
     if (result) return;
     const layers = group.getLayers().getArray().slice().reverse();
     const found = layers.find(l => l.getVisible());
@@ -582,23 +534,41 @@ function refreshLegend() {
   if (topLayer) {
     updateLegend(topLayer.get('title'));
   } else {
-    updateLegend(null);  // nessun layer attivo → legenda vuota
+    updateLegend(null);
   }
 }
 
-// ascolta tutti i layer
-[LCC_no2, Bivariate_map_no2, AMAC_no2, Concentration_2023_no2, Average_2023_no2, December_2023_no2, LCC_pm2p5, Bivariate_map_pm2p5, AMAC_pm2p5, Concentration_2023_pm2p5, Average_2023_pm2p5, December_2023_pm2p5, LCC_pm10,  Bivariate_map_pm10, AMAC_pm10, Concentration_2023_pm10, Average_2023_pm10,  December_2023_pm10].forEach(layer => {
+[LCC_no2, Bivariate_map_no2, AMAC_no2, Concentration_2023_no2, Average_2023_no2, December_2023_no2,
+ LCC_pm2p5, Bivariate_map_pm2p5, AMAC_pm2p5, Concentration_2023_pm2p5, Average_2023_pm2p5, December_2023_pm2p5,
+ LCC_pm10, Bivariate_map_pm10, AMAC_pm10, Concentration_2023_pm10, Average_2023_pm10, December_2023_pm10
+].forEach(layer => {
   layer.on('change:visible', function() {
     refreshLegend();
   });
 });
 
-// legenda iniziale
 refreshLegend();
 
 
+// ── POPUP ON CLICK ──────────────────────────────────────────────────────────
 
-//when clicking on map the function gives you the value
+// Classi separate per pollutant — CORREZIONE PRINCIPALE
+const classiNo2 = {
+  1: '≤ 10 µg/m³',
+  2: '10 — 25 µg/m³',
+  3: '25 — 40 µg/m³',
+  4: '40 — 50 µg/m³',
+  5: '> 50 µg/m³'
+};
+
+const classiPm = {
+  1: '≤ 5 µg/m³',
+  2: '5 — 10 µg/m³',
+  3: '10 — 15 µg/m³',
+  4: '15 — 25 µg/m³',
+  5: '> 25 µg/m³'
+};
+
 map.on('singleclick', function(evt) {
   const topLayer = getTopmostVisibleLayer();
   if (!topLayer) return;
@@ -617,33 +587,35 @@ map.on('singleclick', function(evt) {
     fetch(url)
       .then(response => response.text())
       .then(text => {
-        // per raster
         let match = text.match(/GRAY_INDEX\s*=\s*([\d\.\-]+)/);
-        let value = null;  // ← aggiungi questa riga
+        let value = null;
 
         if (match) {
-          const classe = parseInt(match[1]);
-          const classiConcentration = {
-            1: '≤ 10 µg/m³',
-            2: '10 — 25 µg/m³',
-            3: '25 — 40 µg/m³',
-            4: '40 — 50 µg/m³',
-            5: '> 50 µg/m³'
-          };
-          if (['Concentration 2023 no2', 'Concentration 2023 pm2.5', 'Concentration 2023 pm10'].includes(topLayer.get('title'))) {
-            value = classiConcentration[classe] || 'No data';
+          const layerTitle = topLayer.get('title');
+
+          if (layerTitle === 'Concentration 2023 no2') {
+            // Classi NO2: soglie 10/25/40/50
+            const classe = parseInt(match[1]);
+            value = classiNo2[classe] || 'No data';
+
+          } else if (layerTitle === 'Concentration 2023 pm2.5' || layerTitle === 'Concentration 2023 pm10') {
+            // Classi PM2.5 e PM10: soglie 5/10/15/25
+            const classe = parseInt(match[1]);
+            value = classiPm[classe] || 'No data';
+
           } else {
+            // Tutti gli altri layer raster: valore numerico continuo
             value = parseFloat(match[1]).toFixed(2) + ' µg/m³';
           }
         }
 
-        // per vettoriale bivariate
+        // per layer vettoriale bivariate
         if (!value) {
           const biv = text.match(/bivariate\s*=\s*([\d\.\-]+)/);
           value = biv ? 'Class: ' + biv[1] : null;
         }
 
-        // nome area per vettoriali
+        // nome area per layer vettoriali
         const area = text.match(/gaul2_name\s*=\s*(.+)/);
         const areaName = area ? area[1].trim() : '';
 
@@ -673,7 +645,3 @@ function showPopup(pixel, layerTitle, value, areaName) {
   popup.style.left = pixel[0] + 'px';
   popup.style.top = pixel[1] + 'px';
 }
-December_2023_pm10.getSource().on('imageloaderror', function(event) {
-  console.log('Image load error:', event);
-  console.log('URL:', event.image.src_);
-});
