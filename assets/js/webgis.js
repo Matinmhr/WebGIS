@@ -1,4 +1,3 @@
-// 1. LAYERS BASE
 const osm = new ol.layer.Tile({
   title: 'OpenStreetMap',
   type: 'base',
@@ -8,12 +7,12 @@ const osm = new ol.layer.Tile({
 
 const groupColors = {
   'Base Maps': '#3498db',
-  'NO2': '#8B5CF6',      // ← deve corrispondere al title del gruppo
-  'PM2.5': '#EF4444',    // ← idem
-  'PM10': '#F97316'      // ← idem
+  'NO2': '#8B5CF6',      
+  'PM2.5': '#EF4444',    
+  'PM10': '#F97316'      
 };
 
-const sentinel2 = new ol.layer.Tile({ //default one
+const sentinel2 = new ol.layer.Tile({ 
   title: 'Sentinel-2 Cloudless 2020',
   type: 'base',
   visible: true,
@@ -192,9 +191,6 @@ let LCC_pm10 = new ol.layer.Image({
   })
 });
 
-// aggiungi colombiaRivers e colombiaRoads allo stesso modo...
-
-// 3. GRUPPI
 let basemapLayers = new ol.layer.Group({
   title: 'Base Maps',
   layers: [osm, sentinel2]
@@ -276,14 +272,14 @@ const initialCoordinates = [4.4699, 50.5039];
 
 var map = new ol.Map({
   target: document.getElementById('map'),
-  layers: [basemapLayers, no2, pm2p5, pm10],  // ← gruppi, non osm direttamente
+  layers: [basemapLayers, no2, pm2p5, pm10], 
   view: new ol.View({
     center: ol.proj.fromLonLat(initialCoordinates),
     zoom: initialZoom
   })
 });
 
-// 5. CONTROLLI
+
 map.addControl(new ol.control.ScaleLine());
 map.addControl(new ol.control.FullScreen());
 map.addControl(new ol.control.MousePosition({
@@ -577,7 +573,7 @@ const legendData = {
   ]
 }
 
-  // aggiungi altri layer qui con lo stesso schema
+
 };
 function getLayerGroup(layer) {
   let foundGroup = null;
@@ -604,7 +600,6 @@ function updateLegend(layerTitle) {
     return;
   }
 
-  // trova il gruppo del layer attivo
   const topLayer = getTopmostVisibleLayer();
   const groupName = topLayer ? getLayerGroup(topLayer) : null;
   const color = groupColors[groupName] || '#cccccc';
@@ -621,7 +616,6 @@ function updateLegend(layerTitle) {
 
 
 
-// legenda iniziale al caricamento
 updateLegend();
 
 function getTopmostVisibleLayer() {
@@ -640,18 +634,17 @@ function refreshLegend() {
   if (topLayer) {
     updateLegend(topLayer.get('title'));
   } else {
-    updateLegend(null);  // nessun layer attivo → legenda vuota
+    updateLegend(null);  
   }
 }
 
-// ascolta tutti i layer
+// listener
 [LCC_no2, Bivariate_map_no2, AMAC_no2, Concentration_2023_no2, Average_2023_no2, December_2023_no2, LCC_pm2p5, Bivariate_map_pm2p5, AMAC_pm2p5, Concentration_2023_pm2p5, Average_2023_pm2p5, December_2023_pm2p5, LCC_pm10,  Bivariate_map_pm10, AMAC_pm10, Concentration_2023_pm10, Average_2023_pm10,  December_2023_pm10].forEach(layer => {
   layer.on('change:visible', function() {
     refreshLegend();
   });
 });
 
-// legenda iniziale
 refreshLegend();
 
 
@@ -675,9 +668,9 @@ map.on('singleclick', function(evt) {
     fetch(url)
       .then(response => response.text())
       .then(text => {
-        // per raster
+        
         let match = text.match(/GRAY_INDEX\s*=\s*([\d\.\-]+)/);
-        let value = null;  // ← aggiungi questa riga
+        let value = null;  
 
         if (match) {
           const classe = parseInt(match[1]);

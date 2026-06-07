@@ -1,17 +1,3 @@
-/*
- * Author: Carlos Alvarez
- * URL: http://Alvarez.is
- *
- * Project Name: NYC Design
- * Version: 1.0
- * Date: 04-20-2014
- * URL: 
- */
-
-
-/* ==========================================================================
-   Base Styles, Bootstrap Modifications & Fonts Import
-   ========================================================================== */
 
 @import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
 
@@ -22,11 +8,11 @@
     text-shadow: none;
 }
 .footer-label {
-    color: #ffffff; /* Un colore per le etichette */
+    color: #ffffff; 
 }
 
 .footer-val {
-    color: #ffffff; /* Un colore diverso per i valori */
+    color: #ffffff; 
 }
 ::selection {
     background: #16a085;
@@ -34,9 +20,6 @@
     text-shadow: none;
 }
 
-/*
- * A better looking default horizontal rule
- */
 
  hr {
     display: block;
@@ -58,10 +41,6 @@
 .mb {
 	margin-bottom: 80px;
 }
-
-/* ==========================================================================
-   General styles
-   ========================================================================== */
 
 
 body {
@@ -123,23 +102,17 @@ h1, h2, h3, h4, h5, h6 {
   background-color: transparent;
 }
 
-/* ==========================================================================
-   Wrap Sections
-   ========================================================================== */
 
 #headerwrap {
 	background: url(../img/Title/air_quality_banner_v3.svg) no-repeat center top;
 	margin-top: 0px;
 	padding-top: 500px;
 	text-align: center;
-	/* valid values: scroll, fixed, local */
 	background-attachment: scroll;
-	/* keep single, intended position; shifted 50px to the left */
 	background-position: -50px top;
 	min-height: 850px;
 	width: 100%;
 
-	/* Use cover for responsive background sizing */
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -230,7 +203,7 @@ h1, h2, h3, h4, h5, h6 {
 
 
 
-/* Gallery */
+
 .gallery {
 	margin-top: 30px;
 }
@@ -240,8 +213,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
-
-/* css style to use for all three pollutant pages */
 
 #container_pollutant {
   max-width: 1100px;

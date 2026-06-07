@@ -19,7 +19,7 @@
       padding: 10px;
 }
 
-/*this remove everything except + and - in the zoom control*/
+
 .ol-rotate {
   display: none;
 }
@@ -27,7 +27,6 @@
   display: none;
 }
 
-/* Zoom buttons */
 .ol-zoom {
   top: 10px;
   left: 10px;
@@ -42,7 +41,6 @@
   line-height: 36px;
 }
 
-/* Full screen button */
 .ol-full-screen {
   top: 10px;
   right: 10px;
@@ -93,9 +91,7 @@
     text-shadow: none;
 }
 
-/*
- * A better looking default horizontal rule
- */
+
 
  hr {
     display: block;
@@ -118,9 +114,6 @@
 	margin-bottom: 80px;
 }
 
-/* ==========================================================================
-   General styles
-   ========================================================================== */
 
 
 body {
@@ -136,11 +129,11 @@ h1 {
   font-weight: 700;
   color: #4a4a4a;
   text-align: center;
-  margin-top: 80px;   /* compensa la navbar fixed-top alta ~50px */
+  margin-top: 80px;   
   margin-bottom: 20px;
 }
 .footer-label {
-    color: #ffffff; /* Un colore per le etichette */
+    color: #ffffff; 
 }
 #footerwrap {
 	padding-top: 70px;
